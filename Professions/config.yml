@@ -1,0 +1,1902 @@
+storage:
+  type: SQLITE
+  sqlite-file: professions.db
+  mysql:
+    host: localhost
+    port: 3306
+    database: minecraft
+    username: root
+    password: ''
+    parameters: useSSL=false&allowPublicKeyRetrieval=true
+save-interval-seconds: 300
+diseases:
+  effect-duration-seconds: 75
+  contagious-radius: 3.0
+  contagious-proximity-minutes: 3
+  contagious-required-hits: 5
+  contagious-hit-window-seconds: 60
+  check-interval-seconds: 60
+  infection-chance: 0.08
+  symptom-delay-minutes: 10
+  cold-temperature: 0.25
+  hot-temperature: 1.5
+  cave-y-level: 30
+  exhaustion-sprint-minutes: 10
+max-professions: 1
+luckperms:
+  suffix:
+    enabled: true
+    priority: 100
+    format: ' &8[&a%profession% &7%level% LVL%prestige%&8]'
+levels:
+  max-level: 100
+  milestones-enabled: true
+  formula-enabled: true
+  base-xp: 100
+  xp-per-level: 20
+  quadratic-xp: 0.5
+  requirements: [100, 250, 450, 700, 1000, 1400, 1900, 2500, 3200, 4000, 5000, 6250, 7750, 9500, 11500, 14000, 17000, 20500, 24500, 29000, 33500, 38000, 42500, 47000, 51500, 56000, 60500, 65000, 69500, 74000, 78500, 83000, 87500, 92000, 96500, 101000, 105500, 110000, 114500, 119000, 123500, 128000, 132500, 137000, 141500, 146000, 150500, 155000, 159500, 164000, 168500, 173000, 177500, 182000, 186500, 191000, 195500, 200000, 204500, 209000, 213500, 218000, 222500, 227000, 231500, 236000, 240500, 245000, 249500, 254000, 258500, 263000, 267500, 272000, 276500, 281000, 285500, 290000, 294500, 299000, 303500, 308000, 312500, 317000, 321500, 326000, 330500, 335000, 339500, 344000, 348500, 353000, 357500, 362000, 366500, 371000, 375500, 380000, 384500]
+anti-farm:
+  enabled: false
+  cooldown-seconds: 0
+  xp-limit-per-minute: 600
+  xp-limit-per-hour: 10000
+gui:
+  professions-title: '&8Profesijos'
+  info-title: '&8%profession%'
+  quests-title: '&8Questai: %profession%'
+  filler: GRAY_STAINED_GLASS_PANE
+  professions:
+    farmer: {slot: 0, icon: WHEAT}
+    blacksmith: {slot: 2, icon: ANVIL}
+    enchanter: {slot: 6, icon: ENCHANTING_TABLE}
+    baker: {slot: 8, icon: BREAD}
+    merchant: {slot: 10, icon: EMERALD}
+    architect: {slot: 12, icon: BRICKS}
+    fisherman: {slot: 14, icon: FISHING_ROD}
+    lyderis: {slot: 16, icon: DIAMOND_HELMET}
+effects:
+  level-up:
+    enabled: true
+    sound: ENTITY_PLAYER_LEVELUP
+    particle: END_ROD
+    particle-count: 30
+    title: '&6%profession%'
+    subtitle: '&aPasiekei %level% lygį!'
+    actionbar: true
+professions:
+  farmer:
+    display-name: '&aŽemdirbys'
+    level-50-title: '&aŽemvaldys'
+    description:
+      - '&7Žemdirbys augina, prižiūri ir renka savo užaugintą derlių.'
+      - '&7XP gauni tik nuėmęs visiškai subrendusius augalus.'
+      - '&7Augink ir rink kviečius, morkas, bulves, burokėlius bei cukranendres.'
+      - '&7Moliūgai ir melionai suteikia daugiau XP nei įprasti augalai.'
+    perks: ['Lucky Harvest I', 'Farmer''s Touch', 'Bonus Crops']
+  blacksmith:
+    display-name: '&8Amatininkas'
+    level-50-title: '&8Runakalys'
+    description:
+      - '&7Amatininkas specializuojasi vertingų rūdų kasime ir jų išgavime.'
+      - '&7XP gauni pats iškasęs registruotą rūdos bloką.'
+      - '&7Kask geležies, aukso, deimantų, smaragdų ir raudonųjų dulkių rūdas.'
+      - '&7Daugiausia XP suteikia reta senovinių liekanų rūda Nether pasaulyje.'
+    perks: ['Extra Ingot I', 'Master Smith']
+  enchanter:
+    display-name: '&dŽynys'
+    level-50-title: '&dOrakulas'
+    description:
+      - '&7Žynys stiprina daiktus užburtais efektais ir verda eliksyrus.'
+      - '&7XP gauni už kiekvieną užbūrimą, atliktą prie užbūrimo stalo.'
+      - '&7Taip pat gauni XP išvirdamas paprastus, sprogstamuosius ir ilgai išliekančius eliksyrus.'
+      - '&7Kuo daugiau buriesi ir verdi eliksyrų, tuo greičiau kyla tavo lygis.'
+    perks: ['Arcane Knowledge']
+  baker:
+    display-name: '&6Keporius'
+    level-50-title: '&6Gyduonis'
+    description:
+      - '&7Keporius ruošia maistą, kuris padeda žaidėjams atkurti alkio juostą.'
+      - '&7XP gauni už kiekvieną rankomis pagamintą registruotą maisto vienetą.'
+      - '&7Gamink duoną, pyragus, sausainius, keptą jautieną ir moliūgų pyragą.'
+      - '&7Gamindamas daug daiktų vienu metu, XP gauni už visą pagamintą kiekį.'
+    perks: ['Fresh Ingredients']
+  merchant:
+    display-name: '&ePrekeivis'
+    level-50-title: '&eMagnatas'
+    description:
+      - '&7Prekeivis skirtas žaidėjams, kurie užsiima pirkimu ir daiktų pardavimu.'
+      - '&7Prekiauk su kaimiečiais, pirk jų prekes ir parduok savo atsargas.'
+      - '&7Prekeivio questai fiksuoja kiekvieną sėkmingą prekybą su kaimiečiu.'
+    perks: ['Trade Bonus']
+  architect:
+    display-name: '&bMūrininkas'
+    level-50-title: '&bArchitektas'
+    description:
+      - '&7Mūrininkas stato pastatus, dekoracijas ir kitas pasaulio konstrukcijas.'
+      - '&7XP gauni dėdamas registruotus statybinius blokus.'
+      - '&7Statyk naudodamas akmenį, trinkeles, ąžuolines lentas, plytas ir kvarco blokus.'
+      - '&7Deimantų blokas suteikia daugiausia XP iš visų šiai profesijai skirtų blokų.'
+    perks: ['Builder''s Insight']
+  fisherman:
+    display-name: '&9Žūklys'
+    level-50-title: '&9Gelmėnas'
+    description:
+      - '&7Žūklys gaudo žuvis ir vertingus lobius naudodamas meškerę.'
+      - '&7XP gauni tik sėkmingai ištraukęs registruotą laimikį iš vandens.'
+      - '&7Gaudyk menkes, lašišas, pūsliažuves ir tropines žuvis.'
+      - '&7Daugiau XP suteikia reti laimikiai: užburta knyga, lankas ir nautilo kriauklė.'
+    perks: ['Lucky Catch']
+  lyderis:
+    display-name: '&6Valdovas'
+    level-50-title: '&6Archonas'
+    description:
+      - '&7Valdovas įveikia įvairius pasaulio iššūkius ir rodo pavyzdį kitiems.'
+      - '&7Kovok, keliauk, rink išteklius ir kurk svarbius daiktus.'
+      - '&7Valdovo questai apima daugelį skirtingų veiklų.'
+    perks: ['Leader''s Resolve']
+xp-sources:
+  farmer:
+    harvest:
+      WHEAT: 5
+      CARROTS: 5
+      POTATOES: 5
+      BEETROOTS: 6
+      SUGAR_CANE: 4
+      PUMPKIN: 8
+      MELON: 8
+  blacksmith:
+    mine:
+      IRON_ORE: 8
+      DEEPSLATE_IRON_ORE: 10
+      GOLD_ORE: 12
+      DEEPSLATE_GOLD_ORE: 14
+      DIAMOND_ORE: 30
+      DEEPSLATE_DIAMOND_ORE: 35
+      EMERALD_ORE: 35
+      ANCIENT_DEBRIS: 50
+      REDSTONE_ORE: 10
+      DEEPSLATE_REDSTONE_ORE: 12
+      COAL_ORE: 5
+      DEEPSLATE_COAL_ORE: 6
+      COPPER_ORE: 7
+      DEEPSLATE_COPPER_ORE: 9
+      DEEPSLATE_EMERALD_ORE: 40
+      LAPIS_ORE: 10
+      DEEPSLATE_LAPIS_ORE: 12
+      COBBLESTONE: 1
+      GRANITE: 2
+      DIORITE: 2
+  baker:
+    craft:
+      BREAD: 5
+      CAKE: 20
+      COOKIE: 3
+      COOKED_BEEF: 7
+      PUMPKIN_PIE: 10
+  architect:
+    place:
+      STONE: 1
+      COBBLESTONE: 1
+      OAK_PLANKS: 1
+      BRICKS: 2
+      QUARTZ_BLOCK: 3
+      DIAMOND_BLOCK: 5
+  fisherman:
+    fish:
+      COD: 5
+      SALMON: 7
+      PUFFERFISH: 10
+      TROPICAL_FISH: 12
+      ENCHANTED_BOOK: 50
+      BOW: 40
+      NAUTILUS_SHELL: 60
+  enchanter:
+    enchant-xp: 15
+    brew:
+      POTION: 15
+      SPLASH_POTION: 18
+      LINGERING_POTION: 22
+activity-xp:
+  farmer:
+    BREED_ENTITY: 10
+    KILL_ENTITY: 4
+    COLLECT_ITEM: 1
+    EAT_FOOD: 1
+    TAME_ENTITY: 25
+  enchanter:
+    COLLECT_ITEM: 1
+    KILL_ENTITY: 5
+  baker:
+    SMELT_ITEM: 2
+    EAT_FOOD: 1
+  merchant:
+    TRADE: 15
+    EAT_FOOD: 1
+  architect:
+    BREAK_BLOCK: 1
+    CRAFT_ITEM: 1
+    SMELT_ITEM: 1
+    COLLECT_ITEM: 1
+    EAT_FOOD: 1
+  fisherman:
+    CRAFT_ITEM: 2
+    KILL_ENTITY: 4
+    EAT_FOOD: 1
+  lyderis:
+    BREAK_BLOCK: 1
+    BREED_ENTITY: 12
+    KILL_ENTITY: 6
+    COLLECT_ITEM: 1
+    CRAFT_ITEM: 2
+    SMELT_ITEM: 2
+    EAT_FOOD: 1
+level-rewards: {}
+abilities:
+  farmer:
+    5: {id: lucky_harvest_1, name: '&aLucky Harvest I', type: BONUS_DROP_CHANCE, value: 5, sources: [HARVEST_CROP], description: ['&7Turi &a5% &7tikimybę gauti', '&7papildomą derlių.']}
+    10: {id: green_thumb_1, name: '&2Green Thumb I', type: CROP_GROW_CHANCE, value: 10, sources: [HARVEST_CROP], description: ['&7Turi &a10% &7tikimybę pasodinti', '&7derlių su vienu augimo etapu.']}
+    15: {id: farmer_luck, name: '&eFarmer''s Luck', type: XP_MULTIPLIER, value: 10, sources: [HARVEST_CROP], description: ['&7Gauni &a10% &7daugiau Ūkininko XP.']}
+    20: {id: double_harvest, name: '&6Double Harvest', type: DOUBLE_DROP_CHANCE, value: 10, sources: [HARVEST_CROP], description: ['&7Turi &a10% &7tikimybę gauti', '&7papildomą derliaus kopiją.']}
+    30: {id: lucky_harvest_2, name: '&aLucky Harvest II', type: BONUS_DROP_CHANCE, value: 10, sources: [HARVEST_CROP], description: ['&7Papildomo derliaus tikimybė: &a10%.']}
+    40: {id: green_thumb_2, name: '&2Green Thumb II', type: CROP_GROW_CHANCE, value: 20, sources: [HARVEST_CROP], description: ['&7Pasėlio ataugimo tikimybė: &a20%.']}
+    50: {id: harvest_master, name: '&eHarvest Master', type: XP_MULTIPLIER, value: 15, sources: [HARVEST_CROP], description: ['&7Gauni &a15% &7daugiau Ūkininko XP.']}
+    60: {id: triple_harvest, name: '&6Triple Harvest', type: TRIPLE_DROP_CHANCE, value: 5, sources: [HARVEST_CROP], description: ['&7Turi &a5% &7tikimybę gauti', '&7dvi papildomas derliaus kopijas.']}
+    70: {id: animal_friend, name: '&aAnimal Friend', type: COSMETIC, value: 0, description: ['&7Gyvulių produktų bonusas skirtas', '&7būsimai gyvulių veiklai.'], enabled: false}
+    80: {id: super_harvest, name: '&aSuper Harvest', type: BONUS_DROP_CHANCE, value: 15, sources: [HARVEST_CROP], description: ['&7Papildomo derliaus tikimybė: &a15%.']}
+    90: {id: natures_blessing, name: '&2Nature''s Blessing', type: AUTO_REPLANT_CHANCE, value: 10, sources: [HARVEST_CROP], description: ['&7Turi &a10% &7tikimybę automatiškai', '&7atsodinti derlių.']}
+    100: {id: master_farmer, name: '&6&lMASTER FARMER', type: MASTER, value: 25, bonus-drop-value: 20, sources: [HARVEST_CROP], description: ['&7+&a25% &7Ūkininko XP', '&7+&a20% &7papildomo derliaus tikimybė']}
+  blacksmith:
+    5: {id: strong_arms_1, name: '&8Strong Arms I', type: BONUS_DROP_CHANCE, value: 5, sources: [MINE_ORE], description: ['&7Papildomo rūdos drop tikimybė: &a5%.']}
+    10: {id: efficient_smelting, name: '&6Efficient Smelting', type: BONUS_DROP_CHANCE, value: 10, sources: [SMELT_ITEM], description: ['&7Papildomo ingot tikimybė lydant: &a10%.'], enabled: false}
+    15: {id: mining_knowledge, name: '&eMining Knowledge', type: XP_MULTIPLIER, value: 10, sources: [MINE_ORE], description: ['&7Gauni &a10% &7daugiau Kalvio XP.']}
+    20: {id: ore_finder, name: '&6Ore Finder', type: BONUS_DROP_CHANCE, value: 7, sources: [MINE_ORE], description: ['&7Papildomo rūdos drop tikimybė: &a7%.']}
+    30: {id: strong_arms_2, name: '&8Strong Arms II', type: BONUS_DROP_CHANCE, value: 10, sources: [MINE_ORE], description: ['&7Papildomo rūdos drop tikimybė: &a10%.']}
+    40: {id: master_smelter, name: '&6Master Smelter', type: BONUS_DROP_CHANCE, value: 15, sources: [SMELT_ITEM], description: ['&7Papildomo ingot tikimybė lydant: &a15%.'], enabled: false}
+    50: {id: blacksmith_knowledge, name: '&eBlacksmith Knowledge', type: XP_MULTIPLIER, value: 15, sources: [MINE_ORE], description: ['&7Gauni &a15% &7daugiau Kalvio XP.']}
+    60: {id: lucky_miner, name: '&6Lucky Miner', type: DOUBLE_DROP_CHANCE, value: 5, sources: [MINE_ORE], description: ['&7Turi &a5% &7tikimybę gauti', '&7papildomą rūdos drop.']}
+    70: {id: metal_master, name: '&8Metal Master', type: BONUS_DROP_CHANCE, value: 15, sources: [SMELT_ITEM], description: ['&7Papildomo ingot tikimybė: &a15%.'], enabled: false}
+    80: {id: fortune_smith, name: '&6Fortune Smith', type: BONUS_DROP_CHANCE, value: 10, sources: [MINE_ORE], description: ['&7Papildomo mining drop tikimybė: &a10%.']}
+    90: {id: ancient_knowledge, name: '&8Ancient Knowledge', type: XP_MULTIPLIER, value: 25, sources: [MINE_ORE], description: ['&7Ancient Debris bonusui reikia', '&7atskiro source filtro.'], enabled: false}
+    100: {id: master_blacksmith, name: '&6&lMASTER BLACKSMITH', type: MASTER, value: 25, bonus-drop-value: 20, sources: [MINE_ORE], description: ['&7+&a25% &7Kalvio XP', '&7+&a20% &7papildomo rūdos drop tikimybė']}
+  enchanter:
+    5: {id: arcane_knowledge_1, name: '&dArcane Knowledge I', type: XP_MULTIPLIER, value: 5, sources: [ENCHANT_ITEM, BREW_POTION], description: ['&7Gauni &a5% &7daugiau užbūrimo ir potion XP.']}
+    10: {id: enchanters_luck, name: '&dEnchanter''s Luck', type: XP_MULTIPLIER, value: 10, sources: [ENCHANT_ITEM, BREW_POTION], description: ['&7Gauni &a10% &7daugiau užbūrimo ir potion XP.']}
+    15: {id: mana_efficiency_1, name: '&5Mana Efficiency I', type: ENCHANT_COST_REDUCTION, value: 5, sources: [ENCHANT_ITEM], description: ['&7Enchanting kainuoja &a5% &7mažiau XP.']}
+    20: {id: arcane_knowledge_2, name: '&dArcane Knowledge II', type: XP_MULTIPLIER, value: 15, sources: [ENCHANT_ITEM, BREW_POTION], description: ['&7Gauni &a15% &7daugiau užbūrimo ir potion XP.']}
+    30: {id: enchanters_fortune, name: '&dEnchanter''s Fortune', type: COSMETIC, value: 0, description: ['&7Geresniems enchant rezultatams reikia', '&7atskiros enchant lentelės sistemos.'], enabled: false}
+    40: {id: mana_efficiency_2, name: '&5Mana Efficiency II', type: ENCHANT_COST_REDUCTION, value: 10, sources: [ENCHANT_ITEM], description: ['&7Enchanting kainuoja &a10% &7mažiau XP.']}
+    50: {id: arcane_mastery, name: '&dArcane Mastery', type: XP_MULTIPLIER, value: 20, sources: [ENCHANT_ITEM, BREW_POTION], description: ['&7Gauni &a20% &7daugiau užbūrimo ir potion XP.']}
+    60: {id: efficient_brewing, name: '&dEfficient Brewing', type: BONUS_DROP_CHANCE, value: 10, sources: [BREW_POTION], description: ['&7Turi &a10% &7tikimybę gauti papildomą potioną.']}
+    70: {id: master_apothecary, name: '&dMaster Apothecary', type: XP_MULTIPLIER, value: 15, sources: [BREW_POTION], description: ['&7Gauni &a15% &7daugiau potion XP.']}
+    80: {id: arcane_fortune, name: '&dArcane Fortune', type: XP_MULTIPLIER, value: 25, sources: [ENCHANT_ITEM, BREW_POTION], description: ['&7Gauni &a25% &7daugiau užbūrimo ir potion XP.']}
+    90: {id: grand_enchanter, name: '&dGrand Enchanter', type: COSMETIC, value: 0, description: ['&7Papildomam enchant reward reikia', '&7reward sistemos prijungimo.'], enabled: false}
+    100: {id: master_enchanter, name: '&6&lMASTER ENCHANTER', type: XP_MULTIPLIER, value: 30, sources: [ENCHANT_ITEM, BREW_POTION], description: ['&7Gauni &a30% &7daugiau užbūrimo ir potion XP.']}
+  baker:
+    5: {id: quick_cook, name: '&6Quick Cook', type: XP_MULTIPLIER, value: 5, sources: [CRAFT_ITEM], description: ['&7Gauni &a5% &7daugiau maisto XP.']}
+    10: {id: healthy_meal, name: '&eHealthy Meal', type: BONUS_DROP_CHANCE, value: 5, sources: [CRAFT_ITEM], description: ['&7Papildomo maisto tikimybė: &a5%.']}
+    20: {id: first_aid, name: '&cFirst Aid', type: XP_MULTIPLIER, value: 10, sources: [HEAL_PLAYER], description: ['&7Gauni &a10% &7daugiau gydymo XP.'], enabled: false}
+    30: {id: master_cook, name: '&6Master Cook', type: XP_MULTIPLIER, value: 10, sources: [CRAFT_ITEM], description: ['&7Gauni &a10% &7daugiau maisto XP.']}
+    50: {id: doctor, name: '&cDoctor', type: XP_MULTIPLIER, value: 15, sources: [HEAL_PLAYER], description: ['&7Gauni &a15% &7daugiau gydymo XP.'], enabled: false}
+    60: {id: emergency_heal, name: '&cEmergency Heal', type: COSMETIC, value: 0, description: ['&7Reikalinga gydymo cooldown sistema.'], enabled: false}
+    80: {id: healthy_kitchen, name: '&6Healthy Kitchen', type: BONUS_DROP_CHANCE, value: 15, sources: [CRAFT_ITEM], description: ['&7Papildomo maisto tikimybė: &a15%.']}
+    90: {id: life_saver, name: '&cLife Saver', type: XP_MULTIPLIER, value: 20, sources: [HEAL_PLAYER], description: ['&7Gauni &a20% &7daugiau gydymo XP.'], enabled: false}
+    100: {id: master_medic, name: '&6&lMASTER MEDIC', type: XP_MULTIPLIER, value: 25, sources: [CRAFT_ITEM, HEAL_PLAYER], description: ['&7+&a25% &7maisto ir gydymo XP.']}
+  merchant:
+    5: {id: better_deals_1, name: '&eBetter Deals I', type: SALE_MULTIPLIER, value: 2, sources: [SELL_ITEM], description: ['&7+&a2% &7pardavimo vertė.'], enabled: false}
+    10: {id: traders_luck_1, name: '&eTrader''s Luck', type: BONUS_DROP_CHANCE, value: 5, sources: [TRADE], description: ['&7Papildomo prekybos reward tikimybė: &a5%.'], enabled: false}
+    15: {id: negotiator, name: '&eNegotiator', type: XP_MULTIPLIER, value: 5, sources: [TRADE, SELL_ITEM, BUY_ITEM], description: ['&7Gauni &a5% &7daugiau Pirklio XP.'], enabled: false}
+    20: {id: better_deals_2, name: '&eBetter Deals II', type: SALE_MULTIPLIER, value: 5, sources: [SELL_ITEM], description: ['&7+&a5% &7pardavimo vertė.'], enabled: false}
+    30: {id: merchants_eye, name: '&eMerchant''s Eye', type: PURCHASE_DISCOUNT, value: 10, sources: [BUY_ITEM], description: ['&7- &a10% &7NPC parduotuvių kaina.'], enabled: false}
+    40: {id: traders_luck_2, name: '&eTrader''s Luck II', type: BONUS_DROP_CHANCE, value: 10, sources: [TRADE], description: ['&7Papildomo prekybos reward tikimybė: &a10%.'], enabled: false}
+    50: {id: businessman, name: '&eBusinessman', type: XP_MULTIPLIER, value: 15, sources: [TRADE, SELL_ITEM, BUY_ITEM], description: ['&7Gauni &a15% &7daugiau Pirklio XP.'], enabled: false}
+    60: {id: better_deals_3, name: '&eBetter Deals III', type: SALE_MULTIPLIER, value: 7, sources: [SELL_ITEM], description: ['&7+&a7% &7pardavimo vertė.'], enabled: false}
+    70: {id: rich_merchant, name: '&eRich Merchant', type: SALE_MULTIPLIER, value: 10, sources: [SELL_ITEM], description: ['&7+&a10% &7ekonominis bonusas.'], enabled: false}
+    80: {id: master_negotiator, name: '&eMaster Negotiator', type: XP_MULTIPLIER, value: 20, sources: [TRADE, SELL_ITEM, BUY_ITEM], description: ['&7Gauni &a20% &7daugiau Pirklio XP.'], enabled: false}
+    90: {id: market_master, name: '&eMarket Master', type: SALE_MULTIPLIER, value: 10, sources: [SELL_ITEM], description: ['&7+&a10% &7prekybos bonusas.'], enabled: false}
+    100: {id: master_merchant, name: '&6&lMASTER MERCHANT', type: XP_MULTIPLIER, value: 25, sources: [TRADE, SELL_ITEM, BUY_ITEM], description: ['&7+&a25% &7Pirklio XP', '&7Reikia shop integracijos.'], enabled: false}
+  architect:
+    5: {id: builder_1, name: '&bBuilder I', type: XP_MULTIPLIER, value: 5, sources: [PLACE_BLOCK], description: ['&7Gauni &a5% &7daugiau Architekto XP.']}
+    10: {id: efficient_builder, name: '&bEfficient Builder', type: XP_MULTIPLIER, value: 10, sources: [PLACE_BLOCK], description: ['&7Gauni &a10% &7daugiau statybos XP.']}
+    15: {id: builder_2, name: '&bBuilder II', type: XP_MULTIPLIER, value: 15, sources: [PLACE_BLOCK], description: ['&7Gauni &a15% &7daugiau Architekto XP.']}
+    20: {id: stone_master, name: '&7Stone Master', type: COSMETIC, value: 0, description: ['&7Stone ir deepslate filtro bonusas', '&7reikalauja source filtro.'], enabled: false}
+    30: {id: builder_3, name: '&bBuilder III', type: XP_MULTIPLIER, value: 20, sources: [PLACE_BLOCK], description: ['&7Gauni &a20% &7daugiau Architekto XP.']}
+    40: {id: material_saver_1, name: '&bMaterial Saver I', type: MATERIAL_SAVER_CHANCE, value: 5, sources: [PLACE_BLOCK], description: ['&7Turi &a5% &7tikimybę atgauti', '&7pastatytą bloką.']}
+    50: {id: master_builder, name: '&bMaster Builder', type: XP_MULTIPLIER, value: 25, sources: [PLACE_BLOCK], description: ['&7Gauni &a25% &7daugiau Architekto XP.']}
+    60: {id: creative_architect, name: '&bCreative Architect', type: COSMETIC, value: 0, description: ['&7Retų blokų XP bonusui reikia', '&7atskiro blokų filtro.'], enabled: false}
+    70: {id: material_saver_2, name: '&bMaterial Saver II', type: MATERIAL_SAVER_CHANCE, value: 10, sources: [PLACE_BLOCK], description: ['&7Turi &a10% &7tikimybę atgauti', '&7pastatytą bloką.']}
+    80: {id: grand_architect, name: '&bGrand Architect', type: XP_MULTIPLIER, value: 30, sources: [PLACE_BLOCK], description: ['&7Gauni &a30% &7daugiau Architekto XP.']}
+    90: {id: construction_master, name: '&bConstruction Master', type: MATERIAL_SAVER_CHANCE, value: 15, sources: [PLACE_BLOCK], description: ['&7Turi &a15% &7tikimybę atgauti', '&7pastatytą bloką.']}
+    100: {id: master_architect, name: '&6&lMASTER ARCHITECT', type: MASTER, value: 35, bonus-drop-value: 15, sources: [PLACE_BLOCK], description: ['&7+&a35% &7Architekto XP', '&7+&a15% &7medžiagų išsaugojimo tikimybė']}
+  fisherman:
+    5: {id: lucky_fisher_1, name: '&9Lucky Fisher I', type: XP_MULTIPLIER, value: 5, sources: [FISH], description: ['&7Gauni &a5% &7daugiau žvejybos XP.']}
+    10: {id: better_catch, name: '&9Better Catch', type: COSMETIC, value: 0, description: ['&7Treasure tikimybės keitimui reikia', '&7atskiros žvejybos loot sistemos.'], enabled: false}
+    15: {id: fishermans_luck, name: '&9Fisherman''s Luck', type: XP_MULTIPLIER, value: 10, sources: [FISH], description: ['&7Gauni &a10% &7daugiau žvejybos XP.']}
+    20: {id: double_catch_1, name: '&9Double Catch I', type: DOUBLE_DROP_CHANCE, value: 5, sources: [FISH], description: ['&7Papildomo laimikio tikimybė: &a5%.']}
+    30: {id: lucky_fisher_2, name: '&9Lucky Fisher II', type: XP_MULTIPLIER, value: 15, sources: [FISH], description: ['&7Gauni &a15% &7daugiau žvejybos XP.']}
+    40: {id: treasure_hunter, name: '&9Treasure Hunter', type: COSMETIC, value: 0, description: ['&7Treasure tikimybės keitimui reikia', '&7atskiros žvejybos loot sistemos.'], enabled: false}
+    50: {id: master_fisher, name: '&9Master Fisher', type: XP_MULTIPLIER, value: 20, sources: [FISH], description: ['&7Gauni &a20% &7daugiau žvejybos XP.']}
+    60: {id: double_catch_2, name: '&9Double Catch II', type: DOUBLE_DROP_CHANCE, value: 10, sources: [FISH], description: ['&7Papildomo laimikio tikimybė: &a10%.']}
+    70: {id: deep_sea_hunter, name: '&9Deep Sea Hunter', type: XP_MULTIPLIER, value: 25, sources: [FISH], description: ['&7Gauni &a25% &7daugiau žvejybos XP.']}
+    80: {id: lucky_fisher_3, name: '&9Lucky Fisher III', type: XP_MULTIPLIER, value: 30, sources: [FISH], description: ['&7Gauni &a30% &7daugiau žvejybos XP.']}
+    90: {id: treasure_master, name: '&9Treasure Master', type: COSMETIC, value: 0, description: ['&7Treasure tikimybės keitimui reikia', '&7atskiros žvejybos loot sistemos.'], enabled: false}
+    100: {id: master_fisherman, name: '&6&lMASTER FISHER', type: MASTER, value: 35, bonus-drop-value: 15, sources: [FISH], description: ['&7+&a35% &7žvejybos XP', '&7+&a15% &7papildomo laimikio tikimybė']}
+quests:
+  lyderis-food:
+    profession: lyderis
+    type: EAT_FOOD
+    materials: [FOOD]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Suvalgyti 10 maisto produktų'}, {target: 25, xp-reward: 250, target-description: 'Suvalgyti 25 maisto produktus'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eStiprybės pietūs', description: '&7Suvalgyk bet kokį maistą.', target: 'Suvalgyti 10 maisto produktų', icon: BREAD, accent: '&6'}
+  lyderis-spiders:
+    profession: lyderis
+    type: KILL_ENTITY
+    materials: [SPIDER]
+    stages: [{target: 5, xp-reward: 100, target-description: 'Nužudyti 5 vorus'}, {target: 10, xp-reward: 200, target-description: 'Nužudyti 10 vorų'}, {target: 16, xp-reward: 400, target-description: 'Nužudyti 16 vorų'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eVorų medžioklė', description: '&7Nugalėk vorus.', target: 'Nužudyti 5 vorus', icon: SPIDER_EYE, accent: '&6'}
+  lyderis-zombies:
+    profession: lyderis
+    type: KILL_ENTITY
+    materials: [ZOMBIE]
+    stages: [{target: 5, xp-reward: 100, target-description: 'Nužudyti 5 zombius'}, {target: 10, xp-reward: 200, target-description: 'Nužudyti 10 zombių'}, {target: 16, xp-reward: 400, target-description: 'Nužudyti 16 zombių'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eZombių medžioklė', description: '&7Nugalėk zombius.', target: 'Nužudyti 5 zombius', icon: ROTTEN_FLESH, accent: '&6'}
+  lyderis-skeletons:
+    profession: lyderis
+    type: KILL_ENTITY
+    materials: [SKELETON]
+    stages: [{target: 5, xp-reward: 100, target-description: 'Nužudyti 5 skeletus'}, {target: 10, xp-reward: 200, target-description: 'Nužudyti 10 skeletų'}, {target: 16, xp-reward: 400, target-description: 'Nužudyti 16 skeletų'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eSkeletų medžioklė', description: '&7Nugalėk skeletus.', target: 'Nužudyti 5 skeletus', icon: BONE, accent: '&6'}
+  lyderis-endermen:
+    profession: lyderis
+    type: KILL_ENTITY
+    materials: [ENDERMAN]
+    stages: [{target: 2, xp-reward: 150, target-description: 'Nužudyti 2 endermanus'}, {target: 4, xp-reward: 300, target-description: 'Nužudyti 4 endermanus'}, {target: 8, xp-reward: 600, target-description: 'Nužudyti 8 endermanus'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eEndermenų medžioklė', description: '&7Nugalėk endermanus.', target: 'Nužudyti 2 endermanus', icon: ENDER_PEARL, accent: '&6'}
+  lyderis-creepers:
+    profession: lyderis
+    type: KILL_ENTITY
+    materials: [CREEPER]
+    stages: [{target: 5, xp-reward: 100, target-description: 'Nužudyti 5 creeperius'}, {target: 10, xp-reward: 200, target-description: 'Nužudyti 10 creeperių'}, {target: 16, xp-reward: 400, target-description: 'Nužudyti 16 creeperių'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eCreeperių medžioklė', description: '&7Nugalėk creeperius.', target: 'Nužudyti 5 creeperius', icon: GUNPOWDER, accent: '&6'}
+  lyderis-walk:
+    profession: lyderis
+    type: WALK_DISTANCE
+    materials: [WALK]
+    stages: [{target: 1000, xp-reward: 150, target-description: 'Nubėgti 1000 blokų'}, {target: 1800, xp-reward: 300, target-description: 'Nubėgti 1800 blokų'}, {target: 2500, xp-reward: 600, target-description: 'Nubėgti 2500 blokų'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eIlgas kelias', description: '&7Keliauk sausuma be transporto.', target: 'Nubėgti 1000 blokų', icon: LEATHER_BOOTS, accent: '&6'}
+  lyderis-swim:
+    profession: lyderis
+    type: SWIM_DISTANCE
+    materials: [SWIM]
+    stages: [{target: 1000, xp-reward: 150, target-description: 'Nuplaukti 1000 blokų'}, {target: 1600, xp-reward: 300, target-description: 'Nuplaukti 1600 blokų'}, {target: 2200, xp-reward: 600, target-description: 'Nuplaukti 2200 blokų'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eVandens kelias', description: '&7Plauk vandeniu be valties.', target: 'Nuplaukti 1000 blokų', icon: WATER_BUCKET, accent: '&6'}
+  lyderis-cobblestone:
+    profession: lyderis
+    type: BREAK_BLOCK
+    materials: [COBBLESTONE]
+    stages: [{target: 64, xp-reward: 100, target-description: 'Išgriauti 64 cobblestone'}, {target: 128, xp-reward: 200, target-description: 'Išgriauti 128 cobblestone'}, {target: 192, xp-reward: 400, target-description: 'Išgriauti 192 cobblestone'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eAkmenų kelias', description: '&7Išgriauk cobblestone blokus.', target: 'Išgriauti 64 cobblestone', icon: COBBLESTONE, accent: '&6'}
+  lyderis-logs:
+    profession: lyderis
+    type: BREAK_BLOCK
+    materials: [LOG]
+    stages: [{target: 64, xp-reward: 100, target-description: 'Išgriauti 64 medžių rąstus'}, {target: 128, xp-reward: 200, target-description: 'Išgriauti 128 medžių rąstus'}, {target: 192, xp-reward: 400, target-description: 'Išgriauti 192 medžių rąstus'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eMiško darbai', description: '&7Išgriauk bet kokių medžių rąstus.', target: 'Išgriauti 64 medžių rąstus', icon: OAK_LOG, accent: '&6'}
+  lyderis-sticks:
+    profession: lyderis
+    type: CRAFT_ITEM
+    materials: [STICK]
+    stages: [{target: 16, xp-reward: 100, target-description: 'Pagaminti 16 lazdų'}, {target: 32, xp-reward: 200, target-description: 'Pagaminti 32 lazdas'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eĮrankių pradžia', description: '&7Pagamink lazdas.', target: 'Pagaminti 16 lazdų', icon: STICK, accent: '&6'}
+  lyderis-sand-smelting:
+    profession: lyderis
+    type: SMELT_ITEM
+    materials: [GLASS]
+    stages: [{target: 32, xp-reward: 100, target-description: 'Iškepti 32 smėlio'}, {target: 64, xp-reward: 200, target-description: 'Iškepti 64 smėlio'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eStiklo dirbtuvės', description: '&7Iškepk smėlį krosnyje.', target: 'Iškepti 32 smėlio', icon: GLASS, accent: '&6'}
+  lyderis-chests:
+    profession: lyderis
+    type: CRAFT_ITEM
+    materials: [CHEST]
+    stages: [{target: 4, xp-reward: 150, target-description: 'Pagaminti 4 skrynias'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eAtsargų saugykla', description: '&7Pagamink skrynias.', target: 'Pagaminti 4 skrynias', icon: CHEST, accent: '&6'}
+  lyderis-lanterns:
+    profession: lyderis
+    type: CRAFT_ITEM
+    materials: [LANTERN]
+    stages: [{target: 4, xp-reward: 100, target-description: 'Pagaminti 4 žibintus'}, {target: 8, xp-reward: 200, target-description: 'Pagaminti 8 žibintus'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eŠviesos kelias', description: '&7Pagamink žibintus.', target: 'Pagaminti 4 žibintus', icon: TORCH, accent: '&6'}
+  lyderis-iron-ore:
+    profession: lyderis
+    type: BREAK_BLOCK
+    materials: [IRON_ORE, DEEPSLATE_IRON_ORE]
+    stages: [{target: 16, xp-reward: 100, target-description: 'Iškasti 16 geležies rūdų'}, {target: 32, xp-reward: 200, target-description: 'Iškasti 32 geležies rūdas'}, {target: 64, xp-reward: 400, target-description: 'Iškasti 64 geležies rūdas'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eGeležies atsargos', description: '&7Iškask geležies rūdą.', target: 'Iškasti 16 geležies rūdų', icon: IRON_ORE, accent: '&6'}
+  lyderis-coal-ore:
+    profession: lyderis
+    type: BREAK_BLOCK
+    materials: [COAL_ORE, DEEPSLATE_COAL_ORE]
+    stages: [{target: 16, xp-reward: 100, target-description: 'Iškasti 16 anglies rūdų'}, {target: 32, xp-reward: 200, target-description: 'Iškasti 32 anglies rūdas'}, {target: 64, xp-reward: 400, target-description: 'Iškasti 64 anglies rūdas'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eAnglies atsargos', description: '&7Iškask anglies rūdą.', target: 'Iškasti 16 anglies rūdų', icon: COAL_ORE, accent: '&6'}
+  lyderis-honey-bottles:
+    profession: lyderis
+    type: COLLECT_ITEM
+    materials: [HONEY_BOTTLE]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Surinkti 10 medaus buteliukų'}, {target: 18, xp-reward: 250, target-description: 'Surinkti 18 medaus buteliukų'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eMedaus atsargos', description: '&7Surink medaus buteliukus.', target: 'Surinkti 10 medaus buteliukų', icon: HONEY_BOTTLE, accent: '&6'}
+  lyderis-horses:
+    profession: lyderis
+    type: BREED_ENTITY
+    materials: [HORSE]
+    stages: [{target: 2, xp-reward: 100, target-description: 'Subreedinti 2 arklius'}, {target: 4, xp-reward: 200, target-description: 'Subreedinti 4 arklius'}, {target: 8, xp-reward: 400, target-description: 'Subreedinti 8 arklius'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eŽirgų veisimas', description: '&7Subreedink arklius.', target: 'Subreedinti 2 arklius', icon: SADDLE, accent: '&6'}
+  lyderis-cakes:
+    profession: lyderis
+    type: CRAFT_ITEM
+    materials: [CAKE]
+    stages: [{target: 2, xp-reward: 100, target-description: 'Pagaminti 2 tortus'}, {target: 4, xp-reward: 200, target-description: 'Pagaminti 4 tortus'}, {target: 8, xp-reward: 400, target-description: 'Pagaminti 8 tortus'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eŠventinis stalas', description: '&7Pagamink tortus.', target: 'Pagaminti 2 tortus', icon: CAKE, accent: '&6'}
+  lyderis-golden-carrots:
+    profession: lyderis
+    type: CRAFT_ITEM
+    materials: [GOLDEN_CARROT]
+    stages: [{target: 20, xp-reward: 150, target-description: 'Pagaminti 20 auksinių morkų'}, {target: 40, xp-reward: 300, target-description: 'Pagaminti 40 auksinių morkų'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eAuksinės morkos', description: '&7Pagamink auksines morkas.', target: 'Pagaminti 20 auksinių morkų', icon: GOLDEN_CARROT, accent: '&6'}
+  lyderis-golden-apples:
+    profession: lyderis
+    type: CRAFT_ITEM
+    materials: [GOLDEN_APPLE]
+    stages: [{target: 20, xp-reward: 150, target-description: 'Pagaminti 20 auksinių obuolių'}, {target: 40, xp-reward: 300, target-description: 'Pagaminti 40 auksinių obuolių'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eAuksiniai obuoliai', description: '&7Pagamink auksinius obuolius.', target: 'Pagaminti 20 auksinių obuolių', icon: GOLDEN_APPLE, accent: '&6'}
+  lyderis-spider-eyes:
+    profession: lyderis
+    type: EAT_FOOD
+    materials: [SPIDER_EYE]
+    stages: [{target: 1, xp-reward: 100, target-description: 'Suvalgyti 1 voro akį'}, {target: 3, xp-reward: 200, target-description: 'Suvalgyti 3 voro akis'}, {target: 5, xp-reward: 400, target-description: 'Suvalgyti 5 voro akis'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eRizikingas užkandis', description: '&7Suvalgyk voro akis.', target: 'Suvalgyti 1 voro akį', icon: SPIDER_EYE, accent: '&6'}
+  lyderis-pufferfish:
+    profession: lyderis
+    type: EAT_FOOD
+    materials: [PUFFERFISH]
+    stages: [{target: 1, xp-reward: 100, target-description: 'Suvalgyti 1 pūsliažuvę'}, {target: 3, xp-reward: 200, target-description: 'Suvalgyti 3 pūsliažuves'}, {target: 5, xp-reward: 400, target-description: 'Suvalgyti 5 pūsliažuves'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eJūros išbandymas', description: '&7Suvalgyk pūsliažuves.', target: 'Suvalgyti 1 pūsliažuvę', icon: PUFFERFISH, accent: '&6'}
+  lyderis-gold-ore:
+    profession: lyderis
+    type: BREAK_BLOCK
+    materials: [GOLD_ORE, DEEPSLATE_GOLD_ORE]
+    stages: [{target: 16, xp-reward: 100, target-description: 'Iškasti 16 aukso rūdų'}, {target: 32, xp-reward: 200, target-description: 'Iškasti 32 aukso rūdas'}, {target: 64, xp-reward: 400, target-description: 'Iškasti 64 aukso rūdas'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eAukso atsargos', description: '&7Iškask aukso rūdą.', target: 'Iškasti 16 aukso rūdų', icon: GOLD_ORE, accent: '&6'}
+  lyderis-iron-nuggets:
+    profession: lyderis
+    type: CONVERT_ITEM
+    materials: [IRON_INGOT]
+    stages: [{target: 16, xp-reward: 150, target-description: 'Pakeisti 16 geležies ingotų į grynuolius'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eGeležies grynuoliai', description: '&7Paversk geležies ingotus į grynuolius.', target: 'Pakeisti 16 geležies ingotų', icon: IRON_NUGGET, accent: '&6'}
+  lyderis-gold-nuggets:
+    profession: lyderis
+    type: CONVERT_ITEM
+    materials: [GOLD_INGOT]
+    stages: [{target: 16, xp-reward: 150, target-description: 'Pakeisti 16 aukso ingotų į grynuolius'}]
+    commands: []
+    display: {name: '&6&lLyderio užduotis &8▪ &eAukso grynuoliai', description: '&7Paversk aukso ingotus į grynuolius.', target: 'Pakeisti 16 aukso ingotų', icon: GOLD_NUGGET, accent: '&6'}
+  farmer-wheat-harvest:
+    profession: farmer
+    type: HARVEST_CROP
+    materials: [WHEAT]
+    stages: [{target: 20, xp-reward: 100, target-description: 'Nuskinti 20 kviečių'}, {target: 32, xp-reward: 200, target-description: 'Nuskinti 32 kviečius'}, {target: 64, xp-reward: 400, target-description: 'Nuskinti 64 kviečius'}, {target: 128, xp-reward: 800, target-description: 'Nuskinti 128 kviečius'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eKviečių derlius', description: '&7Nuimk prinokusį kviečių derlių.', target: 'Nuskinti 20 kviečių', icon: WHEAT, accent: '&a'}
+  farmer-carrot-harvest:
+    profession: farmer
+    type: HARVEST_CROP
+    materials: [CARROTS]
+    stages: [{target: 20, xp-reward: 100, target-description: 'Nuskinti 20 morkų'}, {target: 32, xp-reward: 200, target-description: 'Nuskinti 32 morkas'}, {target: 64, xp-reward: 400, target-description: 'Nuskinti 64 morkas'}, {target: 128, xp-reward: 800, target-description: 'Nuskinti 128 morkas'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eMorkų derlius', description: '&7Nuimk prinokusių morkų derlių.', target: 'Nuskinti 20 morkų', icon: CARROT, accent: '&a'}
+  farmer-potato-harvest:
+    profession: farmer
+    type: HARVEST_CROP
+    materials: [POTATOES]
+    stages: [{target: 20, xp-reward: 100, target-description: 'Nuskinti 20 bulvių'}, {target: 32, xp-reward: 200, target-description: 'Nuskinti 32 bulves'}, {target: 64, xp-reward: 400, target-description: 'Nuskinti 64 bulves'}, {target: 128, xp-reward: 800, target-description: 'Nuskinti 128 bulves'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eBulvių derlius', description: '&7Nuimk prinokusių bulvių derlių.', target: 'Nuskinti 20 bulvių', icon: POTATO, accent: '&a'}
+  farmer-beetroot-harvest:
+    profession: farmer
+    type: HARVEST_CROP
+    materials: [BEETROOTS]
+    stages: [{target: 20, xp-reward: 100, target-description: 'Nuskinti 20 burokėlių'}, {target: 32, xp-reward: 200, target-description: 'Nuskinti 32 burokėlius'}, {target: 64, xp-reward: 400, target-description: 'Nuskinti 64 burokėlius'}, {target: 128, xp-reward: 800, target-description: 'Nuskinti 128 burokėlius'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eBurokėlių derlius', description: '&7Nuimk prinokusių burokėlių derlių.', target: 'Nuskinti 20 burokėlių', icon: BEETROOT, accent: '&a'}
+  farmer-sugar-cane-harvest:
+    profession: farmer
+    type: HARVEST_CROP
+    materials: [SUGAR_CANE]
+    stages: [{target: 32, xp-reward: 150, target-description: 'Nuskinti 32 cukranendres'}, {target: 64, xp-reward: 300, target-description: 'Nuskinti 64 cukranendres'}, {target: 128, xp-reward: 600, target-description: 'Nuskinti 128 cukranendres'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eCukranendrių derlius', description: '&7Surink užaugusias cukranendres.', target: 'Nuskinti 32 cukranendres', icon: SUGAR_CANE, accent: '&a'}
+  farmer-melon-harvest:
+    profession: farmer
+    type: HARVEST_CROP
+    materials: [MELON]
+    stages: [{target: 16, xp-reward: 150, target-description: 'Nuskinti 16 melionų'}, {target: 32, xp-reward: 300, target-description: 'Nuskinti 32 melionus'}, {target: 64, xp-reward: 600, target-description: 'Nuskinti 64 melionus'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eMelionų derlius', description: '&7Nuskink prinokusius melionus.', target: 'Nuskinti 16 melionų', icon: MELON_SLICE, accent: '&a'}
+  farmer-cocoa-harvest:
+    profession: farmer
+    type: HARVEST_CROP
+    materials: [COCOA]
+    stages: [{target: 16, xp-reward: 150, target-description: 'Nuskinti 16 kakavos pupelių'}, {target: 32, xp-reward: 300, target-description: 'Nuskinti 32 kakavos pupeles'}, {target: 64, xp-reward: 600, target-description: 'Nuskinti 64 kakavos pupeles'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eKakavos pupelės', description: '&7Nuskink subrendusias kakavos pupeles.', target: 'Nuskinti 16 kakavos pupelių', icon: COCOA_BEANS, accent: '&a'}
+  farmer-milk-collection:
+    profession: farmer
+    type: COLLECT_ITEM
+    materials: [MILK_BUCKET]
+    stages: [{target: 5, xp-reward: 100, target-description: 'Surinkti 5 pieno kibirus'}, {target: 15, xp-reward: 250, target-description: 'Surinkti 15 pieno kibirų'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &ePieno atsargos', description: '&7Surink pieno kibirus savo ūkiui.', target: 'Surinkti 5 pieno kibirus', icon: MILK_BUCKET, accent: '&a'}
+  farmer-egg-collection:
+    profession: farmer
+    type: COLLECT_ITEM
+    materials: [EGG]
+    stages: [{target: 8, xp-reward: 100, target-description: 'Surinkti 8 kiaušinius'}, {target: 16, xp-reward: 200, target-description: 'Surinkti 16 kiaušinių'}, {target: 32, xp-reward: 400, target-description: 'Surinkti 32 kiaušinius'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eKiaušinių krepšys', description: '&7Surink vištų padėtus kiaušinius.', target: 'Surinkti 8 kiaušinius', icon: EGG, accent: '&a'}
+  farmer-wool-collection:
+    profession: farmer
+    type: COLLECT_ITEM
+    materials: [WHITE_WOOL]
+    stages: [{target: 16, xp-reward: 100, target-description: 'Surinkti 16 vilnos'}, {target: 32, xp-reward: 200, target-description: 'Surinkti 32 vilnos'}, {target: 64, xp-reward: 400, target-description: 'Surinkti 64 vilnos'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eVilnos atsargos', description: '&7Surink vilnos iš savo ūkio.', target: 'Surinkti 16 vilnos', icon: WHITE_WOOL, accent: '&a'}
+  farmer-leather-collection:
+    profession: farmer
+    type: COLLECT_ITEM
+    materials: [LEATHER]
+    stages: [{target: 8, xp-reward: 100, target-description: 'Surinkti 8 odas'}, {target: 16, xp-reward: 200, target-description: 'Surinkti 16 odų'}, {target: 32, xp-reward: 400, target-description: 'Surinkti 32 odas'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eOdų atsargos', description: '&7Surink odas iš savo ūkio.', target: 'Surinkti 8 odas', icon: LEATHER, accent: '&a'}
+  farmer-beef-collection:
+    profession: farmer
+    type: COLLECT_ITEM
+    materials: [BEEF]
+    stages: [{target: 8, xp-reward: 100, target-description: 'Surinkti 8 žalios jautienos'}, {target: 16, xp-reward: 200, target-description: 'Surinkti 16 žalios jautienos'}, {target: 32, xp-reward: 400, target-description: 'Surinkti 32 žalios jautienos'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eJautienos atsargos', description: '&7Surink žalios jautienos atsargų.', target: 'Surinkti 8 žalios jautienos', icon: BEEF, accent: '&a'}
+  farmer-pork-collection:
+    profession: farmer
+    type: COLLECT_ITEM
+    materials: [PORKCHOP]
+    stages: [{target: 8, xp-reward: 100, target-description: 'Surinkti 8 žalios kiaulienos'}, {target: 16, xp-reward: 200, target-description: 'Surinkti 16 žalios kiaulienos'}, {target: 32, xp-reward: 400, target-description: 'Surinkti 32 žalios kiaulienos'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eKiaulienos atsargos', description: '&7Surink žalios kiaulienos atsargų.', target: 'Surinkti 8 žalios kiaulienos', icon: PORKCHOP, accent: '&a'}
+  farmer-chicken-collection:
+    profession: farmer
+    type: COLLECT_ITEM
+    materials: [CHICKEN]
+    stages: [{target: 8, xp-reward: 100, target-description: 'Surinkti 8 žalios vištienos'}, {target: 16, xp-reward: 200, target-description: 'Surinkti 16 žalios vištienos'}, {target: 32, xp-reward: 400, target-description: 'Surinkti 32 žalios vištienos'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eVištienos atsargos', description: '&7Surink žalios vištienos atsargų.', target: 'Surinkti 8 žalios vištienos', icon: CHICKEN, accent: '&a'}
+  farmer-mutton-collection:
+    profession: farmer
+    type: COLLECT_ITEM
+    materials: [MUTTON]
+    stages: [{target: 8, xp-reward: 100, target-description: 'Surinkti 8 žalios avienos'}, {target: 16, xp-reward: 200, target-description: 'Surinkti 16 žalios avienos'}, {target: 32, xp-reward: 400, target-description: 'Surinkti 32 žalios avienos'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eAvienos atsargos', description: '&7Surink žalios avienos atsargų.', target: 'Surinkti 8 žalios avienos', icon: MUTTON, accent: '&a'}
+  farmer-honey-bottle-collection:
+    profession: farmer
+    type: COLLECT_ITEM
+    materials: [HONEY_BOTTLE]
+    stages: [{target: 10, xp-reward: 150, target-description: 'Surinkti 10 medaus buteliukų'}, {target: 20, xp-reward: 300, target-description: 'Surinkti 20 medaus buteliukų'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eMedaus buteliukai', description: '&7Surink medaus buteliukus iš savo avilių.', target: 'Surinkti 10 medaus buteliukų', icon: HONEY_BOTTLE, accent: '&a'}
+  farmer-honeycomb-collection:
+    profession: farmer
+    type: COLLECT_ITEM
+    materials: [HONEYCOMB]
+    stages: [{target: 10, xp-reward: 150, target-description: 'Surinkti 10 korių'}, {target: 20, xp-reward: 300, target-description: 'Surinkti 20 korių'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eBičių koriai', description: '&7Surink korius iš savo avilių.', target: 'Surinkti 10 korių', icon: HONEYCOMB, accent: '&a'}
+  farmer-honey-block-crafting:
+    profession: farmer
+    type: CRAFT_ITEM
+    materials: [HONEY_BLOCK]
+    target: 20
+    xp-reward: 500
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eMedaus blokai', description: '&7Pagamink medaus blokų iš surinktų buteliukų.', target: 'Pagaminti 20 medaus blokų', icon: HONEY_BLOCK, accent: '&a'}
+  farmer-chicken-breeding:
+    profession: farmer
+    type: BREED_ENTITY
+    materials: [CHICKEN]
+    stages: [{target: 6, xp-reward: 150, target-description: 'Subreedinti 6 vištas'}, {target: 12, xp-reward: 300, target-description: 'Subreedinti 12 vištų'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eVištų ūkis', description: '&7Subreedink vištas savo ūkyje.', target: 'Subreedinti 6 vištas', icon: CHICKEN_SPAWN_EGG, accent: '&a'}
+  farmer-sheep-breeding:
+    profession: farmer
+    type: BREED_ENTITY
+    materials: [SHEEP]
+    stages: [{target: 6, xp-reward: 150, target-description: 'Subreedinti 6 avis'}, {target: 12, xp-reward: 300, target-description: 'Subreedinti 12 avių'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eAvių ūkis', description: '&7Subreedink avis savo ūkyje.', target: 'Subreedinti 6 avis', icon: SHEEP_SPAWN_EGG, accent: '&a'}
+  farmer-cow-breeding:
+    profession: farmer
+    type: BREED_ENTITY
+    materials: [COW]
+    stages: [{target: 6, xp-reward: 150, target-description: 'Subreedinti 6 karves'}, {target: 12, xp-reward: 300, target-description: 'Subreedinti 12 karvių'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eKarvių ūkis', description: '&7Subreedink karves savo ūkyje.', target: 'Subreedinti 6 karves', icon: COW_SPAWN_EGG, accent: '&a'}
+  farmer-pig-breeding:
+    profession: farmer
+    type: BREED_ENTITY
+    materials: [PIG]
+    stages: [{target: 6, xp-reward: 150, target-description: 'Subreedinti 6 kiaules'}, {target: 12, xp-reward: 300, target-description: 'Subreedinti 12 kiaulių'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eKiaulių ūkis', description: '&7Subreedink kiaules savo ūkyje.', target: 'Subreedinti 6 kiaules', icon: PIG_SPAWN_EGG, accent: '&a'}
+  farmer-farm-animal-hunt:
+    profession: farmer
+    type: KILL_ENTITY
+    materials: [CHICKEN, PIG, SHEEP, COW]
+    stages: [{target: 12, xp-reward: 200, target-description: 'Nužudyti 12 ūkio gyvūnų'}, {target: 24, xp-reward: 400, target-description: 'Nužudyti 24 ūkio gyvūnus'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eŪkio atsargos', description: '&7Nužudyk vištas, kiaules, avis arba karves.', target: 'Nužudyti 12 ūkio gyvūnų', icon: IRON_SWORD, accent: '&a'}
+  farmer-food-tasting:
+    profession: farmer
+    type: EAT_FOOD
+    materials: [FOOD]
+    stages: [{target: 15, xp-reward: 150, target-description: 'Suvalgyti 15 maisto produktų'}, {target: 25, xp-reward: 300, target-description: 'Suvalgyti 25 maisto produktus'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eŪkininko pietūs', description: '&7Suvalgyk bet kokį maistą.', target: 'Suvalgyti 15 maisto produktų', icon: BREAD, accent: '&a'}
+  farmer-wolf-taming:
+    profession: farmer
+    type: TAME_ENTITY
+    materials: [WOLF]
+    stages: [{target: 2, xp-reward: 200, target-description: 'Prisijaukinti 2 šunis'}, {target: 4, xp-reward: 400, target-description: 'Prisijaukinti 4 šunis'}, {target: 6, xp-reward: 600, target-description: 'Prisijaukinti 6 šunis'}]
+    commands: []
+    display: {name: '&a&lŪkininko užduotis &8▪ &eIštikimi draugai', description: '&7Prisijaukink laukinius vilkus.', target: 'Prisijaukinti 2 šunis', icon: BONE, accent: '&a'}
+  blacksmith-iron:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [IRON_ORE, DEEPSLATE_IRON_ORE]
+    stages: [{target: 32, xp-reward: 200, target-description: 'Iškasti 32 geležies rūdas'}, {target: 64, xp-reward: 400, target-description: 'Iškasti 64 geležies rūdas'}, {target: 128, xp-reward: 800, target-description: 'Iškasti 128 geležies rūdas'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eGeležies rūda', description: '&7Iškask geležies rūdą kalvio dirbtuvei.', target: 'Iškasti 32 geležies rūdas', icon: IRON_ORE, accent: '&8'}
+  enchanter-first-enchantments:
+    profession: enchanter
+    type: ENCHANT_ITEM
+    materials: [ENCHANT]
+    target: 5
+    xp-reward: 100
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &ePirmieji užbūrimai I', description: '&7Užburk daiktus prie užbūrimo stalo.', target: 'Užburti 5 daiktus', icon: ENCHANTING_TABLE, accent: '&5'}
+  enchanter-first-enchantments-2:
+    profession: enchanter
+    type: ENCHANT_ITEM
+    materials: [ENCHANT]
+    target: 10
+    xp-reward: 200
+    requires: enchanter-first-enchantments
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &ePirmieji užbūrimai II', description: '&7Tęsk užbūrimus prie užbūrimo stalo.', target: 'Užburti 10 daiktų', icon: ENCHANTING_TABLE, accent: '&5'}
+  enchanter-first-enchantments-3:
+    profession: enchanter
+    type: ENCHANT_ITEM
+    materials: [ENCHANT]
+    target: 20
+    xp-reward: 400
+    requires: enchanter-first-enchantments-2
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &ePirmieji užbūrimai III', description: '&7Užbaik pirmųjų užbūrimų mokymą.', target: 'Užburti 20 daiktų', icon: ENCHANTING_TABLE, accent: '&5'}
+  enchanter-arcane-library:
+    profession: enchanter
+    type: ENCHANT_ITEM
+    materials: [ENCHANT]
+    target: 16
+    xp-reward: 150
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eArkaninė biblioteka I', description: '&7Sukurk užburtų daiktų savo magijos kolekcijai.', target: 'Užburti 16 daiktų', icon: ENCHANTED_BOOK, accent: '&5'}
+  enchanter-arcane-library-2:
+    profession: enchanter
+    type: ENCHANT_ITEM
+    materials: [ENCHANT]
+    target: 32
+    xp-reward: 300
+    requires: enchanter-arcane-library
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eArkaninė biblioteka II', description: '&7Papildyk magijos kolekciją užburtais daiktais.', target: 'Užburti 32 daiktus', icon: ENCHANTED_BOOK, accent: '&5'}
+  enchanter-arcane-library-3:
+    profession: enchanter
+    type: ENCHANT_ITEM
+    materials: [ENCHANT]
+    target: 64
+    xp-reward: 600
+    requires: enchanter-arcane-library-2
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eArkaninė biblioteka III', description: '&7Užbaik magijos kolekcijos plėtrą.', target: 'Užburti 64 daiktus', icon: ENCHANTED_BOOK, accent: '&5'}
+  enchanter-potion-brewing:
+    profession: enchanter
+    type: BREW_POTION
+    materials: [POTION]
+    target: 9
+    xp-reward: 100
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eEliksyrų katilas I', description: '&7Virk paprastus eliksyrus alchemijos stende.', target: 'Išvirti 9 paprastus eliksyrus', icon: POTION, accent: '&5'}
+  enchanter-potion-brewing-2:
+    profession: enchanter
+    type: BREW_POTION
+    materials: [POTION]
+    target: 18
+    xp-reward: 200
+    requires: enchanter-potion-brewing
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eEliksyrų katilas II', description: '&7Tęsk paprastų eliksyrų virimą.', target: 'Išvirti 18 paprastų eliksyrų', icon: POTION, accent: '&5'}
+  enchanter-potion-brewing-3:
+    profession: enchanter
+    type: BREW_POTION
+    materials: [POTION]
+    target: 36
+    xp-reward: 400
+    requires: enchanter-potion-brewing-2
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eEliksyrų katilas III', description: '&7Užbaik paprastų eliksyrų virimo seriją.', target: 'Išvirti 36 paprastus eliksyrus', icon: POTION, accent: '&5'}
+  enchanter-splash-brewing:
+    profession: enchanter
+    type: BREW_POTION
+    materials: [SPLASH_POTION]
+    target: 6
+    xp-reward: 125
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eSprogstamoji alchemija I', description: '&7Virk sprogstamuosius eliksyrus metimui.', target: 'Išvirti 6 sprogstamuosius eliksyrus', icon: SPLASH_POTION, accent: '&5'}
+  enchanter-splash-brewing-2:
+    profession: enchanter
+    type: BREW_POTION
+    materials: [SPLASH_POTION]
+    target: 12
+    xp-reward: 250
+    requires: enchanter-splash-brewing
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eSprogstamoji alchemija II', description: '&7Tęsk sprogstamųjų eliksyrų virimą.', target: 'Išvirti 12 sprogstamųjų eliksyrų', icon: SPLASH_POTION, accent: '&5'}
+  enchanter-splash-brewing-3:
+    profession: enchanter
+    type: BREW_POTION
+    materials: [SPLASH_POTION]
+    target: 24
+    xp-reward: 500
+    requires: enchanter-splash-brewing-2
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eSprogstamoji alchemija III', description: '&7Užbaik sprogstamosios alchemijos seriją.', target: 'Išvirti 24 sprogstamuosius eliksyrus', icon: SPLASH_POTION, accent: '&5'}
+  enchanter-spider-hunt:
+    profession: enchanter
+    type: KILL_ENTITY
+    materials: [SPIDER, CAVE_SPIDER]
+    target: 12
+    xp-reward: 150
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eNakties medžioklė I', description: '&7Nužudyk vorus ir surink tamsiosios alchemijos medžiagas.', target: 'Nužudyti 12 vorų', icon: SPIDER_EYE, accent: '&5'}
+  enchanter-spider-hunt-2:
+    profession: enchanter
+    type: KILL_ENTITY
+    materials: [SPIDER, CAVE_SPIDER]
+    target: 24
+    xp-reward: 300
+    requires: enchanter-spider-hunt
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eNakties medžioklė II', description: '&7Tęsk vorų medžioklę alchemijos medžiagoms.', target: 'Nužudyti 24 vorus', icon: SPIDER_EYE, accent: '&5'}
+  enchanter-spider-hunt-3:
+    profession: enchanter
+    type: KILL_ENTITY
+    materials: [SPIDER, CAVE_SPIDER]
+    target: 48
+    xp-reward: 600
+    requires: enchanter-spider-hunt-2
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eNakties medžioklė III', description: '&7Užbaik vorų medžioklės seriją.', target: 'Nužudyti 48 vorus', icon: SPIDER_EYE, accent: '&5'}
+  enchanter-spider-eye-collection:
+    profession: enchanter
+    type: COLLECT_ITEM
+    materials: [SPIDER_EYE]
+    target: 8
+    xp-reward: 125
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eNuodingas regėjimas I', description: '&7Surink vorų akis būsimiems eliksyrams.', target: 'Surinkti 8 vorų akis', icon: SPIDER_EYE, accent: '&5'}
+  enchanter-spider-eye-collection-2:
+    profession: enchanter
+    type: COLLECT_ITEM
+    materials: [SPIDER_EYE]
+    target: 16
+    xp-reward: 250
+    requires: enchanter-spider-eye-collection
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eNuodingas regėjimas II', description: '&7Papildyk alchemijos atsargas vorų akimis.', target: 'Surinkti 16 vorų akių', icon: SPIDER_EYE, accent: '&5'}
+  enchanter-spider-eye-collection-3:
+    profession: enchanter
+    type: COLLECT_ITEM
+    materials: [SPIDER_EYE]
+    target: 32
+    xp-reward: 500
+    requires: enchanter-spider-eye-collection-2
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eNuodingas regėjimas III', description: '&7Užbaik vorų akių rinkimo seriją.', target: 'Surinkti 32 vorų akis', icon: SPIDER_EYE, accent: '&5'}
+  enchanter-gunpowder-collection:
+    profession: enchanter
+    type: COLLECT_ITEM
+    materials: [GUNPOWDER]
+    target: 16
+    xp-reward: 150
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eSprogstamoji esencija I', description: '&7Surink paraką sprogstamiesiems eliksyrams.', target: 'Surinkti 16 parako', icon: GUNPOWDER, accent: '&5'}
+  enchanter-gunpowder-collection-2:
+    profession: enchanter
+    type: COLLECT_ITEM
+    materials: [GUNPOWDER]
+    target: 32
+    xp-reward: 300
+    requires: enchanter-gunpowder-collection
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eSprogstamoji esencija II', description: '&7Papildyk parako atsargas metamiems eliksyrams.', target: 'Surinkti 32 parako', icon: GUNPOWDER, accent: '&5'}
+  enchanter-gunpowder-collection-3:
+    profession: enchanter
+    type: COLLECT_ITEM
+    materials: [GUNPOWDER]
+    target: 64
+    xp-reward: 600
+    requires: enchanter-gunpowder-collection-2
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eSprogstamoji esencija III', description: '&7Užbaik parako rinkimo seriją.', target: 'Surinkti 64 parako', icon: GUNPOWDER, accent: '&5'}
+  enchanter-creeper-hunt:
+    profession: enchanter
+    type: KILL_ENTITY
+    materials: [CREEPER]
+    target: 12
+    xp-reward: 150
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eSprogstamųjų medžiagų medžioklė I', description: '&7Nužudyk creeperius ir pasirūpink parako atsargomis.', target: 'Nužudyti 12 creeperių', icon: GUNPOWDER, accent: '&5'}
+  enchanter-creeper-hunt-2:
+    profession: enchanter
+    type: KILL_ENTITY
+    materials: [CREEPER]
+    target: 24
+    xp-reward: 300
+    requires: enchanter-creeper-hunt
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eSprogstamųjų medžiagų medžioklė II', description: '&7Tęsk creeperių medžioklę.', target: 'Nužudyti 24 creeperius', icon: GUNPOWDER, accent: '&5'}
+  enchanter-creeper-hunt-3:
+    profession: enchanter
+    type: KILL_ENTITY
+    materials: [CREEPER]
+    target: 48
+    xp-reward: 600
+    requires: enchanter-creeper-hunt-2
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eSprogstamųjų medžiagų medžioklė III', description: '&7Užbaik creeperių medžioklės seriją.', target: 'Nužudyti 48 creeperius', icon: GUNPOWDER, accent: '&5'}
+  enchanter-redstone-collection:
+    profession: enchanter
+    type: COLLECT_ITEM
+    materials: [REDSTONE]
+    stages: [{target: 32, xp-reward: 150, target-description: 'Surinkti 32 raudonąsias dulkes'}, {target: 64, xp-reward: 300, target-description: 'Surinkti 64 raudonąsias dulkes'}, {target: 128, xp-reward: 600, target-description: 'Surinkti 128 raudonąsias dulkes'}]
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eMagijos dulkės', description: '&7Surink raudonąsias dulkes magiškiems eksperimentams.', target: 'Surinkti 32 raudonąsias dulkes', icon: REDSTONE, accent: '&5'}
+  enchanter-lapis-collection:
+    profession: enchanter
+    type: COLLECT_ITEM
+    materials: [LAPIS_LAZULI]
+    stages: [{target: 16, xp-reward: 150, target-description: 'Surinkti 16 lazurito'}, {target: 32, xp-reward: 300, target-description: 'Surinkti 32 lazuritus'}, {target: 64, xp-reward: 600, target-description: 'Surinkti 64 lazuritus'}]
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eUžbūrimo lazuritas', description: '&7Surink lazuritą daiktų užbūrimams.', target: 'Surinkti 16 lazurito', icon: LAPIS_LAZULI, accent: '&5'}
+  enchanter-witch-hunt:
+    profession: enchanter
+    type: KILL_ENTITY
+    materials: [WITCH]
+    stages: [{target: 6, xp-reward: 175, target-description: 'Nužudyti 6 raganas'}, {target: 12, xp-reward: 350, target-description: 'Nužudyti 12 raganų'}, {target: 24, xp-reward: 700, target-description: 'Nužudyti 24 raganas'}]
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eRaganų medžioklė', description: '&7Nugalėk raganas ir surink jų paliktas alchemijos medžiagas.', target: 'Nužudyti 6 raganas', icon: GLASS_BOTTLE, accent: '&5'}
+  enchanter-fermented-spider-eye-crafting:
+    profession: enchanter
+    type: CRAFT_ITEM
+    materials: [FERMENTED_SPIDER_EYE]
+    stages: [{target: 8, xp-reward: 150, target-description: 'Pagaminti 8 fermentuotas vorų akis'}, {target: 16, xp-reward: 300, target-description: 'Pagaminti 16 fermentuotų vorų akių'}, {target: 32, xp-reward: 600, target-description: 'Pagaminti 32 fermentuotas vorų akis'}]
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eRūgšti esencija', description: '&7Pagamink fermentuotas vorų akis savo alchemijos atsargoms.', target: 'Pagaminti 8 fermentuotas vorų akis', icon: FERMENTED_SPIDER_EYE, accent: '&5'}
+  enchanter-master-alchemist:
+    profession: enchanter
+    type: BREW_POTION
+    materials: [POTION, SPLASH_POTION, LINGERING_POTION]
+    stages: [{target: 18, xp-reward: 200, target-description: 'Išvirti 18 eliksyrų'}, {target: 36, xp-reward: 400, target-description: 'Išvirti 36 eliksyrus'}, {target: 72, xp-reward: 800, target-description: 'Išvirti 72 eliksyrus'}]
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eMeistro laboratorija', description: '&7Virk bet kokio tipo eliksyrus ir tobulink alchemiją.', target: 'Išvirti 18 eliksyrų', icon: BREWING_STAND, accent: '&5'}
+  baker-bread:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [BREAD]
+    stages: [{target: 8, xp-reward: 100, target-description: 'Pagaminti 8 duonas'}, {target: 16, xp-reward: 200, target-description: 'Pagaminti 16 duonų'}, {target: 32, xp-reward: 400, target-description: 'Pagaminti 32 duonas'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eŠviežia duona', description: '&7Pagamink šviežios duonos.', target: 'Pagaminti 8 duonas', icon: BREAD, accent: '&6'}
+  baker-cake:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [CAKE]
+    stages: [{target: 2, xp-reward: 100, target-description: 'Pagaminti 2 tortus'}, {target: 8, xp-reward: 200, target-description: 'Pagaminti 8 tortus'}, {target: 16, xp-reward: 400, target-description: 'Pagaminti 16 tortų'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eTortų kepimas', description: '&7Pagamink šventinių tortų.', target: 'Pagaminti 2 tortus', icon: CAKE, accent: '&6'}
+  baker-cookies:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [COOKIE]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Pagaminti 10 sausainių'}, {target: 25, xp-reward: 250, target-description: 'Pagaminti 25 sausainius'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eSausainių partija', description: '&7Pagamink saldžių sausainių.', target: 'Pagaminti 10 sausainių', icon: COOKIE, accent: '&6'}
+  baker-pumpkin-pie:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [PUMPKIN_PIE]
+    stages: [{target: 5, xp-reward: 100, target-description: 'Pagaminti 5 moliūgų pyragus'}, {target: 10, xp-reward: 200, target-description: 'Pagaminti 10 moliūgų pyragų'}, {target: 15, xp-reward: 300, target-description: 'Pagaminti 15 moliūgų pyragų'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eMoliūgų pyragai', description: '&7Pagamink moliūgų pyragų.', target: 'Pagaminti 5 moliūgų pyragus', icon: PUMPKIN_PIE, accent: '&6'}
+  baker-sugar:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [SUGAR]
+    stages: [{target: 32, xp-reward: 150, target-description: 'Pagaminti 32 cukraus'}, {target: 64, xp-reward: 300, target-description: 'Pagaminti 64 cukraus'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eCukraus atsargos', description: '&7Paruošk cukraus saldumynams.', target: 'Pagaminti 32 cukraus', icon: SUGAR, accent: '&6'}
+  baker-cooked-beef:
+    profession: baker
+    type: SMELT_ITEM
+    materials: [COOKED_BEEF]
+    stages: [{target: 16, xp-reward: 150, target-description: 'Iškepti 16 jautienos'}, {target: 32, xp-reward: 300, target-description: 'Iškepti 32 jautienos'}, {target: 64, xp-reward: 600, target-description: 'Iškepti 64 jautienos'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eKepta jautiena', description: '&7Iškepk sočios jautienos.', target: 'Iškepti 16 jautienos', icon: COOKED_BEEF, accent: '&6'}
+  baker-cooked-pork:
+    profession: baker
+    type: SMELT_ITEM
+    materials: [COOKED_PORKCHOP]
+    stages: [{target: 16, xp-reward: 150, target-description: 'Iškepti 16 kiaulienos'}, {target: 32, xp-reward: 300, target-description: 'Iškepti 32 kiaulienos'}, {target: 64, xp-reward: 600, target-description: 'Iškepti 64 kiaulienos'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eKepta kiauliena', description: '&7Iškepk sočios kiaulienos.', target: 'Iškepti 16 kiaulienos', icon: COOKED_PORKCHOP, accent: '&6'}
+  baker-cooked-chicken:
+    profession: baker
+    type: SMELT_ITEM
+    materials: [COOKED_CHICKEN]
+    stages: [{target: 16, xp-reward: 150, target-description: 'Iškepti 16 vištienos'}, {target: 32, xp-reward: 300, target-description: 'Iškepti 32 vištienos'}, {target: 64, xp-reward: 600, target-description: 'Iškepti 64 vištienos'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eKepta vištiena', description: '&7Iškepk vištienos.', target: 'Iškepti 16 vištienos', icon: COOKED_CHICKEN, accent: '&6'}
+  baker-cooked-potato:
+    profession: baker
+    type: SMELT_ITEM
+    materials: [BAKED_POTATO]
+    stages: [{target: 16, xp-reward: 150, target-description: 'Iškepti 16 bulvių'}, {target: 32, xp-reward: 300, target-description: 'Iškepti 32 bulves'}, {target: 64, xp-reward: 600, target-description: 'Iškepti 64 bulves'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eKeptos bulvės', description: '&7Iškepk bulvių atsargų.', target: 'Iškepti 16 bulvių', icon: BAKED_POTATO, accent: '&6'}
+  baker-any-meat:
+    profession: baker
+    type: SMELT_ITEM
+    materials: [COOKED_BEEF, COOKED_PORKCHOP, COOKED_CHICKEN, COOKED_MUTTON, COOKED_RABBIT]
+    stages: [{target: 50, xp-reward: 250, target-description: 'Iškepti 50 bet kokios mėsos'}, {target: 100, xp-reward: 500, target-description: 'Iškepti 100 bet kokios mėsos'}, {target: 150, xp-reward: 750, target-description: 'Iškepti 150 bet kokios mėsos'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eMėsos puota', description: '&7Iškepk bet kokios rūšies mėsos.', target: 'Iškepti 50 bet kokios mėsos', icon: COOKED_BEEF, accent: '&6'}
+  baker-sweets:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [CAKE, COOKIE, PUMPKIN_PIE]
+    stages: [{target: 100, xp-reward: 500, target-description: 'Pagaminti 100 tortų, sausainių arba pyragų'}, {target: 150, xp-reward: 750, target-description: 'Pagaminti 150 tortų, sausainių arba pyragų'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eSaldus stalas', description: '&7Gamink tortus, sausainius arba moliūgų pyragus.', target: 'Pagaminti 100 saldumynų', icon: CAKE, accent: '&6'}
+  baker-bread-master:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [BREAD]
+    target: 100
+    xp-reward: 500
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eDuonos meistras', description: '&7Pagamink didelę šviežios duonos partiją.', target: 'Pagaminti 100 duonos', icon: BREAD, accent: '&6'}
+  baker-golden-carrots:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [GOLDEN_CARROT]
+    stages: [{target: 20, xp-reward: 200, target-description: 'Pagaminti 20 auksinių morkų'}, {target: 25, xp-reward: 250, target-description: 'Pagaminti 25 auksines morkas'}, {target: 40, xp-reward: 400, target-description: 'Pagaminti 40 auksinių morkų'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eAuksinės morkos', description: '&7Pagamink vertingų auksinių morkų.', target: 'Pagaminti 20 auksinių morkų', icon: GOLDEN_CARROT, accent: '&6'}
+  baker-golden-apples:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [GOLDEN_APPLE]
+    stages: [{target: 20, xp-reward: 250, target-description: 'Pagaminti 20 auksinių obuolių'}, {target: 25, xp-reward: 300, target-description: 'Pagaminti 25 auksinius obuolius'}, {target: 30, xp-reward: 350, target-description: 'Pagaminti 30 auksinių obuolių'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eAuksiniai obuoliai', description: '&7Pagamink vertingų auksinių obuolių.', target: 'Pagaminti 20 auksinių obuolių', icon: GOLDEN_APPLE, accent: '&6'}
+  baker-golden-dandelions:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [GOLDEN_DANDELION]
+    stages: [{target: 2, xp-reward: 300, target-description: 'Pagaminti 2 auksines kiaulpienes'}, {target: 4, xp-reward: 600, target-description: 'Pagaminti 4 auksines kiaulpienes'}, {target: 6, xp-reward: 900, target-description: 'Pagaminti 6 auksines kiaulpienes'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eAuksinės kiaulpienės', description: '&7Pagamink auksinių kiaulpienių.', target: 'Pagaminti 2 auksines kiaulpienes', icon: DANDELION, accent: '&6'}
+  baker-cooked-fish:
+    profession: baker
+    type: SMELT_ITEM
+    materials: [COOKED_COD, COOKED_SALMON]
+    stages: [{target: 50, xp-reward: 250, target-description: 'Iškepti 50 žuvų'}, {target: 70, xp-reward: 350, target-description: 'Iškepti 70 žuvų'}, {target: 90, xp-reward: 450, target-description: 'Iškepti 90 žuvų'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eKepta žuvis', description: '&7Iškepk bet kokios rūšies žuvų.', target: 'Iškepti 50 žuvų', icon: COOKED_COD, accent: '&6'}
+  baker-cooked-cod:
+    profession: baker
+    type: SMELT_ITEM
+    materials: [COOKED_COD]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Iškepti 10 menkių'}, {target: 25, xp-reward: 250, target-description: 'Iškepti 25 menkes'}, {target: 35, xp-reward: 350, target-description: 'Iškepti 35 menkes'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eKepta menkė', description: '&7Iškepk šviežių menkių.', target: 'Iškepti 10 menkių', icon: COOKED_COD, accent: '&6'}
+  baker-cooked-salmon:
+    profession: baker
+    type: SMELT_ITEM
+    materials: [COOKED_SALMON]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Iškepti 10 lašišų'}, {target: 25, xp-reward: 250, target-description: 'Iškepti 25 lašišas'}, {target: 35, xp-reward: 350, target-description: 'Iškepti 35 lašišas'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eKepta lašiša', description: '&7Iškepk šviežių lašišų.', target: 'Iškepti 10 lašišų', icon: COOKED_SALMON, accent: '&6'}
+  baker-food-tasting:
+    profession: baker
+    type: EAT_FOOD
+    materials: [FOOD]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Suvalgyti 10 bet kokio maisto'}, {target: 25, xp-reward: 250, target-description: 'Suvalgyti 25 bet kokio maisto'}]
+    commands: []
+    display: {name: '&6&lKepėjo užduotis &8▪ &eSkonio testas', description: '&7Suvalgyk bet kokį maistą.', target: 'Suvalgyti 10 bet kokio maisto', icon: BREAD, accent: '&6'}
+  merchant-villager-trades:
+    profession: merchant
+    type: TRADE
+    materials: [VILLAGER]
+    stages: [{target: 16, xp-reward: 100, target-description: 'Atlikti 16 prekybų su kaimiečiais'}, {target: 32, xp-reward: 200, target-description: 'Atlikti 32 prekybas su kaimiečiais'}, {target: 64, xp-reward: 400, target-description: 'Atlikti 64 prekybas su kaimiečiais'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &ePrekybos pradžia', description: '&7Prekiauk su kaimiečiais.', target: 'Atlikti 16 prekybų su kaimiečiais', icon: EMERALD, accent: '&e'}
+  merchant-emerald-sales:
+    profession: merchant
+    type: SELL_ITEM
+    materials: [EMERALD]
+    stages: [{target: 20, xp-reward: 100, target-description: 'Uždirbti 20 smaragdų'}, {target: 40, xp-reward: 200, target-description: 'Uždirbti 40 smaragdų'}, {target: 64, xp-reward: 400, target-description: 'Uždirbti 64 smaragdus'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &eSmaragdų uždarbis', description: '&7Parduok daiktus kaimiečiams ir gauk smaragdų.', target: 'Uždirbti 20 smaragdų', icon: EMERALD, accent: '&e'}
+  merchant-book-purchases:
+    profession: merchant
+    type: BUY_ITEM
+    materials: [BOOK, ENCHANTED_BOOK]
+    stages: [{target: 20, xp-reward: 150, target-description: 'Nupirkti 20 knygų'}, {target: 40, xp-reward: 300, target-description: 'Nupirkti 40 knygų'}, {target: 60, xp-reward: 450, target-description: 'Nupirkti 60 knygų'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &eKnygų kolekcija', description: '&7Pirk knygas iš kaimiečių.', target: 'Nupirkti 20 knygų', icon: BOOK, accent: '&e'}
+  merchant-carrot-trades:
+    profession: merchant
+    type: SELL_ITEM
+    materials: [CARROT]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Išmainyti 10 morkų'}, {target: 16, xp-reward: 200, target-description: 'Išmainyti 16 morkų'}, {target: 32, xp-reward: 400, target-description: 'Išmainyti 32 morkas'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &eMorkų sandoris', description: '&7Mainyk morkas su kaimiečiais.', target: 'Išmainyti 10 morkų', icon: CARROT, accent: '&e'}
+  merchant-potato-trades:
+    profession: merchant
+    type: SELL_ITEM
+    materials: [POTATO]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Išmainyti 10 bulvių'}, {target: 16, xp-reward: 200, target-description: 'Išmainyti 16 bulvių'}, {target: 32, xp-reward: 400, target-description: 'Išmainyti 32 bulves'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &eBulvių sandoris', description: '&7Mainyk bulves su kaimiečiais.', target: 'Išmainyti 10 bulvių', icon: POTATO, accent: '&e'}
+  merchant-wheat-trades:
+    profession: merchant
+    type: SELL_ITEM
+    materials: [WHEAT]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Išmainyti 10 javų'}, {target: 16, xp-reward: 200, target-description: 'Išmainyti 16 javų'}, {target: 32, xp-reward: 400, target-description: 'Išmainyti 32 javus'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &eJavų sandoris', description: '&7Mainyk kviečius su kaimiečiais.', target: 'Išmainyti 10 javų', icon: WHEAT, accent: '&e'}
+  merchant-melon-trades:
+    profession: merchant
+    type: SELL_ITEM
+    materials: [MELON]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Išmainyti 10 melionų'}, {target: 16, xp-reward: 200, target-description: 'Išmainyti 16 melionų'}, {target: 32, xp-reward: 400, target-description: 'Išmainyti 32 melionus'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &eMelionų sandoris', description: '&7Mainyk melionus su kaimiečiais.', target: 'Išmainyti 10 melionų', icon: MELON, accent: '&e'}
+  merchant-pumpkin-trades:
+    profession: merchant
+    type: SELL_ITEM
+    materials: [PUMPKIN]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Išmainyti 10 moliūgų'}, {target: 16, xp-reward: 200, target-description: 'Išmainyti 16 moliūgų'}, {target: 32, xp-reward: 400, target-description: 'Išmainyti 32 moliūgus'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &eMoliūgų sandoris', description: '&7Mainyk moliūgus su kaimiečiais.', target: 'Išmainyti 10 moliūgų', icon: PUMPKIN, accent: '&e'}
+  merchant-cod-trades:
+    profession: merchant
+    type: SELL_ITEM
+    materials: [COD]
+    stages: [{target: 5, xp-reward: 100, target-description: 'Išmainyti 5 žalias menkes'}, {target: 10, xp-reward: 200, target-description: 'Išmainyti 10 žalių menkių'}, {target: 16, xp-reward: 320, target-description: 'Išmainyti 16 žalių menkių'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &eMenkės sandoris', description: '&7Mainyk žalias menkes su kaimiečiais.', target: 'Išmainyti 5 žalias menkes', icon: COD, accent: '&e'}
+  merchant-salmon-trades:
+    profession: merchant
+    type: SELL_ITEM
+    materials: [SALMON]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Išmainyti 10 žalių lašišų'}, {target: 16, xp-reward: 200, target-description: 'Išmainyti 16 žalių lašišų'}, {target: 32, xp-reward: 400, target-description: 'Išmainyti 32 žalias lašišas'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &eLašišų sandoris', description: '&7Mainyk žalias lašišas su kaimiečiais.', target: 'Išmainyti 10 žalių lašišų', icon: SALMON, accent: '&e'}
+  merchant-emerald-purchases:
+    profession: merchant
+    type: BUY_ITEM
+    materials: [EMERALD]
+    stages: [{target: 64, xp-reward: 300, target-description: 'Išleisti 64 smaragdus pirkiniams'}, {target: 128, xp-reward: 600, target-description: 'Išleisti 128 smaragdus pirkiniams'}, {target: 192, xp-reward: 900, target-description: 'Išleisti 192 smaragdus pirkiniams'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &eDideli pirkiniai', description: '&7Pirk prekes iš kaimiečių už smaragdus.', target: 'Išleisti 64 smaragdus pirkiniams', icon: EMERALD, accent: '&e'}
+  merchant-food-tasting:
+    profession: merchant
+    type: EAT_FOOD
+    materials: [FOOD]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Suvalgyti 10 maisto produktų'}, {target: 25, xp-reward: 250, target-description: 'Suvalgyti 25 maisto produktus'}]
+    commands: []
+    display: {name: '&e&lPirklio užduotis &8▪ &ePrekybininko pietūs', description: '&7Suvalgyk bet kokį maistą.', target: 'Suvalgyti 10 maisto produktų', icon: BREAD, accent: '&e'}
+  architect-break-cobblestone:
+    profession: architect
+    type: BREAK_BLOCK
+    materials: [COBBLESTONE]
+    stages: [{target: 64, xp-reward: 100, target-description: 'Išgriauti 64 cobblestone'}, {target: 128, xp-reward: 200, target-description: 'Išgriauti 128 cobblestone'}, {target: 192, xp-reward: 400, target-description: 'Išgriauti 192 cobblestone'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eAkmens ardymas', description: '&7Išgriauk cobblestone blokus statybų vietoje.', target: 'Išgriauti 64 cobblestone', icon: COBBLESTONE, accent: '&b'}
+  architect-break-logs:
+    profession: architect
+    type: BREAK_BLOCK
+    materials: [LOGS]
+    stages: [{target: 64, xp-reward: 100, target-description: 'Išgriauti 64 medžių rąstus'}, {target: 128, xp-reward: 200, target-description: 'Išgriauti 128 medžių rąstus'}, {target: 192, xp-reward: 400, target-description: 'Išgriauti 192 medžių rąstus'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eMiško valymas', description: '&7Išgriauk bet kokių medžių rąstus.', target: 'Išgriauti 64 medžių rąstus', icon: OAK_LOG, accent: '&b'}
+  architect-break-dirt:
+    profession: architect
+    type: BREAK_BLOCK
+    materials: [DIRT]
+    stages: [{target: 20, xp-reward: 75, target-description: 'Išgriauti 20 dirt'}, {target: 40, xp-reward: 150, target-description: 'Išgriauti 40 dirt'}, {target: 64, xp-reward: 300, target-description: 'Išgriauti 64 dirt'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &ePamatų valymas', description: '&7Išvalyk dirt blokus naujai statybų vietai.', target: 'Išgriauti 20 dirt', icon: DIRT, accent: '&b'}
+  architect-collect-tuff:
+    profession: architect
+    type: COLLECT_ITEM
+    materials: [TUFF]
+    stages: [{target: 32, xp-reward: 100, target-description: 'Surinkti 32 tuff blokus'}, {target: 64, xp-reward: 200, target-description: 'Surinkti 64 tuff blokus'}, {target: 128, xp-reward: 400, target-description: 'Surinkti 128 tuff blokus'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eTuff atsargos', description: '&7Išgriauk tuff blokus ir surink juos į inventorių.', target: 'Surinkti 32 tuff blokus', icon: TUFF, accent: '&b'}
+  architect-place-logs:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [LOGS]
+    stages: [{target: 32, xp-reward: 100, target-description: 'Pastatyti 32 medžių rąstus'}, {target: 64, xp-reward: 200, target-description: 'Pastatyti 64 medžių rąstus'}, {target: 128, xp-reward: 400, target-description: 'Pastatyti 128 medžių rąstus'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eRąstų konstrukcija', description: '&7Statyk iš bet kokių medžių rąstų.', target: 'Pastatyti 32 medžių rąstus', icon: OAK_LOG, accent: '&b'}
+  architect-place-planks:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [PLANKS]
+    stages: [{target: 32, xp-reward: 100, target-description: 'Pastatyti 32 medines lentas'}, {target: 64, xp-reward: 200, target-description: 'Pastatyti 64 medines lentas'}, {target: 128, xp-reward: 400, target-description: 'Pastatyti 128 medines lentas'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eMedinės grindys', description: '&7Statyk iš bet kokių medinių lentų.', target: 'Pastatyti 32 medines lentas', icon: OAK_PLANKS, accent: '&b'}
+  architect-place-cobblestone:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [COBBLESTONE]
+    stages: [{target: 32, xp-reward: 100, target-description: 'Pastatyti 32 cobblestone'}, {target: 64, xp-reward: 200, target-description: 'Pastatyti 64 cobblestone'}, {target: 128, xp-reward: 400, target-description: 'Pastatyti 128 cobblestone'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eCobblestone siena', description: '&7Statyk tvirtas cobblestone konstrukcijas.', target: 'Pastatyti 32 cobblestone', icon: COBBLESTONE, accent: '&b'}
+  architect-place-bricks:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [BRICKS]
+    stages: [{target: 32, xp-reward: 125, target-description: 'Pastatyti 32 plytų blokus'}, {target: 64, xp-reward: 250, target-description: 'Pastatyti 64 plytų blokus'}, {target: 128, xp-reward: 500, target-description: 'Pastatyti 128 plytų blokus'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &ePlytų mūras', description: '&7Pagamink plytų blokus ir pastatyk juos.', target: 'Pastatyti 32 plytų blokus', icon: BRICKS, accent: '&b'}
+  architect-place-glass:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [GLASS]
+    stages: [{target: 16, xp-reward: 75, target-description: 'Pastatyti 16 stiklo blokų'}, {target: 32, xp-reward: 150, target-description: 'Pastatyti 32 stiklo blokus'}, {target: 64, xp-reward: 300, target-description: 'Pastatyti 64 stiklo blokus'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eStiklo fasadas', description: '&7Statyk skaidrius stiklo fasadus.', target: 'Pastatyti 16 stiklo blokų', icon: GLASS, accent: '&b'}
+  architect-place-lanterns:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [LANTERN]
+    stages: [{target: 8, xp-reward: 100, target-description: 'Pastatyti 8 žibintus'}, {target: 16, xp-reward: 250, target-description: 'Pastatyti 16 žibintų'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eŠviesi statyba', description: '&7Pagamink žibintus ir pastatyk juos.', target: 'Pastatyti 8 žibintus', icon: LANTERN, accent: '&b'}
+  architect-place-stairs:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [STAIRS]
+    stages: [{target: 16, xp-reward: 75, target-description: 'Pastatyti 16 laiptų'}, {target: 32, xp-reward: 150, target-description: 'Pastatyti 32 laiptus'}, {target: 64, xp-reward: 300, target-description: 'Pastatyti 64 laiptus'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eLaiptų meistras', description: '&7Statyk bet kokius laiptus.', target: 'Pastatyti 16 laiptų', icon: OAK_STAIRS, accent: '&b'}
+  architect-place-slabs:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [SLABS]
+    stages: [{target: 32, xp-reward: 100, target-description: 'Pastatyti 32 plokštes'}, {target: 64, xp-reward: 200, target-description: 'Pastatyti 64 plokštes'}, {target: 128, xp-reward: 400, target-description: 'Pastatyti 128 plokštes'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &ePlokščių klojėjas', description: '&7Statyk bet kokias plokštes.', target: 'Pastatyti 32 plokštes', icon: OAK_SLAB, accent: '&b'}
+  architect-smelt-cobblestone:
+    profession: architect
+    type: SMELT_ITEM
+    materials: [STONE]
+    stages: [{target: 32, xp-reward: 100, target-description: 'Iškepti 32 cobblestone'}, {target: 64, xp-reward: 200, target-description: 'Iškepti 64 cobblestone'}, {target: 128, xp-reward: 400, target-description: 'Iškepti 128 cobblestone'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eAkmens degimas', description: '&7Krosnyje iškepk cobblestone į stone.', target: 'Iškepti 32 cobblestone', icon: FURNACE, accent: '&b'}
+  architect-smelt-sand:
+    profession: architect
+    type: SMELT_ITEM
+    materials: [GLASS]
+    stages: [{target: 16, xp-reward: 100, target-description: 'Iškepti 16 smėlio į stiklą'}, {target: 32, xp-reward: 200, target-description: 'Iškepti 32 smėlio į stiklą'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eStiklo lydykla', description: '&7Krosnyje iškepk smėlį į stiklą.', target: 'Iškepti 16 smėlio į stiklą', icon: GLASS, accent: '&b'}
+  architect-smelt-stone:
+    profession: architect
+    type: SMELT_ITEM
+    materials: [SMOOTH_STONE]
+    stages: [{target: 16, xp-reward: 75, target-description: 'Iškepti 16 stone'}, {target: 32, xp-reward: 150, target-description: 'Iškepti 32 stone'}, {target: 64, xp-reward: 300, target-description: 'Iškepti 64 stone'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eGlotnus akmuo', description: '&7Krosnyje iškepk stone į smooth stone.', target: 'Iškepti 16 stone', icon: SMOOTH_STONE, accent: '&b'}
+  architect-craft-planks:
+    profession: architect
+    type: CRAFT_ITEM
+    materials: [PLANKS]
+    stages: [{target: 32, xp-reward: 100, target-description: 'Pagaminti 32 medines lentas'}, {target: 64, xp-reward: 200, target-description: 'Pagaminti 64 medines lentas'}, {target: 128, xp-reward: 400, target-description: 'Pagaminti 128 medines lentas'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eLentpjūvė', description: '&7Pagamink bet kokias medines lentas.', target: 'Pagaminti 32 medines lentas', icon: OAK_PLANKS, accent: '&b'}
+  architect-craft-stairs:
+    profession: architect
+    type: CRAFT_ITEM
+    materials: [STAIRS]
+    stages: [{target: 16, xp-reward: 75, target-description: 'Pagaminti 16 laiptų'}, {target: 32, xp-reward: 150, target-description: 'Pagaminti 32 laiptus'}, {target: 64, xp-reward: 300, target-description: 'Pagaminti 64 laiptus'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eLaiptų dirbtuvė', description: '&7Pagamink bet kokius laiptus.', target: 'Pagaminti 16 laiptų', icon: OAK_STAIRS, accent: '&b'}
+  architect-craft-slabs:
+    profession: architect
+    type: CRAFT_ITEM
+    materials: [SLABS]
+    stages: [{target: 32, xp-reward: 100, target-description: 'Pagaminti 32 plokštes'}, {target: 64, xp-reward: 200, target-description: 'Pagaminti 64 plokštes'}, {target: 128, xp-reward: 400, target-description: 'Pagaminti 128 plokštes'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &ePlokščių dirbtuvė', description: '&7Pagamink bet kokias plokštes.', target: 'Pagaminti 32 plokštes', icon: OAK_SLAB, accent: '&b'}
+  architect-craft-chests:
+    profession: architect
+    type: CRAFT_ITEM
+    materials: [CHEST]
+    target: 8
+    xp-reward: 150
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eSandėlio pradžia', description: '&7Pagamink skrynias statybų medžiagoms.', target: 'Pagaminti 8 skrynias', icon: CHEST, accent: '&b'}
+  architect-craft-doors:
+    profession: architect
+    type: CRAFT_ITEM
+    materials: [DOORS]
+    target: 4
+    xp-reward: 100
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eAtviros durys', description: '&7Pagamink bet kokias duris.', target: 'Pagaminti 4 duris', icon: OAK_DOOR, accent: '&b'}
+  architect-eat-food:
+    profession: architect
+    type: EAT_FOOD
+    materials: [FOOD]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Suvalgyti 10 maisto produktų'}, {target: 25, xp-reward: 250, target-description: 'Suvalgyti 25 maisto produktus'}]
+    commands: []
+    display: {name: '&b&lArchitekto užduotis &8✦ &eStatytojo pietūs', description: '&7Suvalgyk bet kokį maistą po statybų.', target: 'Suvalgyti 10 maisto produktų', icon: BREAD, accent: '&b'}
+  fisherman-cod:
+    profession: fisherman
+    type: FISH
+    materials: [COD]
+    stages: [{target: 16, xp-reward: 100, target-description: 'Pagauti 16 menkių'}, {target: 32, xp-reward: 200, target-description: 'Pagauti 32 menkes'}, {target: 64, xp-reward: 400, target-description: 'Pagauti 64 menkes'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eMenkės laimikis', description: '&7Su meškere gaudyk menkes.', target: 'Pagauti 16 menkių', icon: COD, accent: '&9'}
+  fisherman-salmon:
+    profession: fisherman
+    type: FISH
+    materials: [SALMON]
+    stages: [{target: 16, xp-reward: 100, target-description: 'Pagauti 16 lašišų'}, {target: 32, xp-reward: 200, target-description: 'Pagauti 32 lašišas'}, {target: 64, xp-reward: 400, target-description: 'Pagauti 64 lašišas'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eLašišų laimikis', description: '&7Su meškere gaudyk lašišas.', target: 'Pagauti 16 lašišų', icon: SALMON, accent: '&9'}
+  fisherman-tropical-fish:
+    profession: fisherman
+    type: FISH
+    materials: [TROPICAL_FISH]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Pagauti 10 tropinių žuvų'}, {target: 15, xp-reward: 200, target-description: 'Pagauti 15 tropinių žuvų'}, {target: 32, xp-reward: 400, target-description: 'Pagauti 32 tropines žuvis'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eTropikų spalvos', description: '&7Su meškere gaudyk tropines žuvis.', target: 'Pagauti 10 tropinių žuvų', icon: TROPICAL_FISH, accent: '&9'}
+  fisherman-pufferfish:
+    profession: fisherman
+    type: FISH
+    materials: [PUFFERFISH]
+    stages: [{target: 5, xp-reward: 75, target-description: 'Pagauti 5 pūstažuves'}, {target: 10, xp-reward: 150, target-description: 'Pagauti 10 pūstažuvių'}, {target: 16, xp-reward: 250, target-description: 'Pagauti 16 pūstažuvių'}, {target: 32, xp-reward: 400, target-description: 'Pagauti 32 pūstažuves'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eDygliuotas laimikis', description: '&7Su meškere gaudyk pūstažuves.', target: 'Pagauti 5 pūstažuves', icon: PUFFERFISH, accent: '&9'}
+  fisherman-lily-pad:
+    profession: fisherman
+    type: FISH
+    materials: [LILY_PAD]
+    stages: [{target: 2, xp-reward: 75, target-description: 'Pagauti 2 lelijų lapus'}, {target: 5, xp-reward: 150, target-description: 'Pagauti 5 lelijų lapus'}, {target: 10, xp-reward: 300, target-description: 'Pagauti 10 lelijų lapų'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eVandens sodas', description: '&7Ištrauk lelijų lapus iš vandens.', target: 'Pagauti 2 lelijų lapus', icon: LILY_PAD, accent: '&9'}
+  fisherman-name-tag:
+    profession: fisherman
+    type: FISH
+    materials: [NAME_TAG]
+    stages: [{target: 2, xp-reward: 100, target-description: 'Pagauti 2 vardų žymas'}, {target: 5, xp-reward: 200, target-description: 'Pagauti 5 vardų žymas'}, {target: 10, xp-reward: 400, target-description: 'Pagauti 10 vardų žymų'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eVardų lobis', description: '&7Ištrauk vardų žymas su meškere.', target: 'Pagauti 2 vardų žymas', icon: NAME_TAG, accent: '&9'}
+  fisherman-leather:
+    profession: fisherman
+    type: FISH
+    materials: [LEATHER]
+    stages: [{target: 2, xp-reward: 75, target-description: 'Pagauti 2 odas'}, {target: 5, xp-reward: 150, target-description: 'Pagauti 5 odas'}, {target: 10, xp-reward: 300, target-description: 'Pagauti 10 odų'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eOdos laimikis', description: '&7Ištrauk odą su meškere.', target: 'Pagauti 2 odas', icon: LEATHER, accent: '&9'}
+  fisherman-bow:
+    profession: fisherman
+    type: FISH
+    materials: [BOW]
+    stages: [{target: 2, xp-reward: 100, target-description: 'Pagauti 2 lankus'}, {target: 5, xp-reward: 200, target-description: 'Pagauti 5 lankus'}, {target: 10, xp-reward: 400, target-description: 'Pagauti 10 lankų'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eSkenduolio arsenalas', description: '&7Ištrauk lankus su meškere.', target: 'Pagauti 2 lankus', icon: BOW, accent: '&9'}
+  fisherman-nautilus-shell:
+    profession: fisherman
+    type: FISH
+    materials: [NAUTILUS_SHELL]
+    stages: [{target: 2, xp-reward: 100, target-description: 'Pagauti 2 nautilus kriaukles'}, {target: 5, xp-reward: 200, target-description: 'Pagauti 5 nautilus kriaukles'}, {target: 10, xp-reward: 400, target-description: 'Pagauti 10 nautilus kriauklių'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eJūros kriauklės', description: '&7Ištrauk nautilus kriaukles su meškere.', target: 'Pagauti 2 nautilus kriaukles', icon: NAUTILUS_SHELL, accent: '&9'}
+  fisherman-fish:
+    profession: fisherman
+    type: FISH
+    materials: [FISH]
+    stages: [{target: 16, xp-reward: 100, target-description: 'Pagauti 16 žuvų'}, {target: 32, xp-reward: 200, target-description: 'Pagauti 32 žuvis'}, {target: 64, xp-reward: 400, target-description: 'Pagauti 64 žuvis'}, {target: 128, xp-reward: 800, target-description: 'Pagauti 128 žuvis'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &ePilnas tinklas', description: '&7Su meškere gaudyk bet kokias žuvis.', target: 'Pagauti 16 žuvų', icon: FISHING_ROD, accent: '&9'}
+  fisherman-loot:
+    profession: fisherman
+    type: FISH
+    materials: [LOOT]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Pagauti 10 įvairių lobių'}, {target: 25, xp-reward: 250, target-description: 'Pagauti 25 įvairius lobius'}, {target: 50, xp-reward: 500, target-description: 'Pagauti 50 įvairių lobių'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eVandens lobiai', description: '&7Su meškere ištrauk įvairų vandens grobį.', target: 'Pagauti 10 įvairių lobių', icon: ENCHANTED_BOOK, accent: '&9'}
+  fisherman-squid:
+    profession: fisherman
+    type: KILL_ENTITY
+    materials: [SQUID]
+    stages: [{target: 5, xp-reward: 100, target-description: 'Nužudyti 5 kalmarus'}, {target: 16, xp-reward: 250, target-description: 'Nužudyti 16 kalmarų'}, {target: 32, xp-reward: 500, target-description: 'Nužudyti 32 kalmarus'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eGilumų kalmarai', description: '&7Nugalėk kalmarus vandenyse.', target: 'Nužudyti 5 kalmarus', icon: INK_SAC, accent: '&9'}
+  fisherman-boats:
+    profession: fisherman
+    type: CRAFT_ITEM
+    materials: [OAK_BOAT, SPRUCE_BOAT, BIRCH_BOAT, JUNGLE_BOAT, ACACIA_BOAT, DARK_OAK_BOAT, MANGROVE_BOAT, CHERRY_BOAT, BAMBOO_RAFT]
+    stages: [{target: 2, xp-reward: 100, target-description: 'Pagaminti 2 valtis'}, {target: 5, xp-reward: 250, target-description: 'Pagaminti 5 valtis'}, {target: 10, xp-reward: 500, target-description: 'Pagaminti 10 valčių'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eLaivadirbys', description: '&7Pagamink valtis savo kelionėms.', target: 'Pagaminti 2 valtis', icon: OAK_BOAT, accent: '&9'}
+  fisherman-fishing-rods:
+    profession: fisherman
+    type: CRAFT_ITEM
+    materials: [FISHING_ROD]
+    stages: [{target: 2, xp-reward: 100, target-description: 'Pagaminti 2 meškeres'}, {target: 5, xp-reward: 250, target-description: 'Pagaminti 5 meškeres'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eMeškerių meistras', description: '&7Pagamink meškeres žvejybai.', target: 'Pagaminti 2 meškeres', icon: FISHING_ROD, accent: '&9'}
+  fisherman-boat-distance:
+    profession: fisherman
+    type: BOAT_DISTANCE
+    materials: [BOAT]
+    stages: [{target: 600, xp-reward: 150, target-description: 'Nuplaukti 600 blokų valtimi'}, {target: 1200, xp-reward: 300, target-description: 'Nuplaukti 1200 blokų valtimi'}, {target: 1800, xp-reward: 500, target-description: 'Nuplaukti 1800 blokų valtimi'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eVandens kelias', description: '&7Plauk valtimi vandeniu.', target: 'Nuplaukti 600 blokų valtimi', icon: OAK_BOAT, accent: '&9'}
+  fisherman-eat-pufferfish:
+    profession: fisherman
+    type: EAT_FOOD
+    materials: [PUFFERFISH]
+    target: 1
+    xp-reward: 100
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eRizikingas skonis', description: '&7Suvalgyk pūstažuvę.', target: 'Suvalgyti 1 pūstažuvę', icon: PUFFERFISH, accent: '&9'}
+  fisherman-eat-food:
+    profession: fisherman
+    type: EAT_FOOD
+    materials: [FOOD]
+    stages: [{target: 10, xp-reward: 100, target-description: 'Suvalgyti 10 bet kokio maisto'}, {target: 25, xp-reward: 250, target-description: 'Suvalgyti 25 bet kokio maisto'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eJūrininko pietūs', description: '&7Suvalgyk bet kokį maistą.', target: 'Suvalgyti 10 bet kokio maisto', icon: COOKED_COD, accent: '&9'}
+  fisherman-drowned:
+    profession: fisherman
+    type: KILL_ENTITY
+    materials: [DROWNED]
+    stages: [{target: 5, xp-reward: 100, target-description: 'Nužudyti 5 skenduolius'}, {target: 10, xp-reward: 250, target-description: 'Nužudyti 10 skenduolių'}, {target: 15, xp-reward: 400, target-description: 'Nužudyti 15 skenduolių'}]
+    commands: []
+    display: {name: '&9&lŽvejo užduotis &8▪ &eSkenduolių medžioklė', description: '&7Nugalėk skenduolius vandenyse.', target: 'Nužudyti 5 skenduolius', icon: TRIDENT, accent: '&9'}
+  blacksmith-coal:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [COAL_ORE, DEEPSLATE_COAL_ORE]
+    stages: [{target: 20, xp-reward: 150, target-description: 'Iškasti 20 anglies rūdų'}, {target: 40, xp-reward: 300, target-description: 'Iškasti 40 anglies rūdų'}, {target: 128, xp-reward: 650, target-description: 'Iškasti 128 anglies rūdas'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eAnglies pradžia', description: '&7Iškask anglies rūdą kalvio žaizdrui.', target: 'Iškasti 20 anglies rūdų', icon: COAL_ORE, accent: '&8'}
+  blacksmith-copper:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [COPPER_ORE, DEEPSLATE_COPPER_ORE]
+    stages: [{target: 32, xp-reward: 200, target-description: 'Iškasti 32 vario rūdas'}, {target: 64, xp-reward: 400, target-description: 'Iškasti 64 vario rūdas'}, {target: 128, xp-reward: 800, target-description: 'Iškasti 128 vario rūdas'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eVario pradžia', description: '&7Iškask vario rūdą kalvio dirbtuvei.', target: 'Iškasti 32 vario rūdas', icon: COPPER_ORE, accent: '&8'}
+  blacksmith-gold:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [GOLD_ORE, DEEPSLATE_GOLD_ORE]
+    stages: [{target: 16, xp-reward: 180, target-description: 'Iškasti 16 aukso rūdų'}, {target: 32, xp-reward: 360, target-description: 'Iškasti 32 aukso rūdas'}, {target: 64, xp-reward: 720, target-description: 'Iškasti 64 aukso rūdas'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eAukso atsargos', description: '&7Iškask aukso rūdą kalvio dirbtuvei.', target: 'Iškasti 16 aukso rūdų', icon: GOLD_ORE, accent: '&8'}
+  blacksmith-diamond:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [DIAMOND_ORE, DEEPSLATE_DIAMOND_ORE]
+    stages: [{target: 8, xp-reward: 250, target-description: 'Iškasti 8 deimantų rūdas'}, {target: 16, xp-reward: 500, target-description: 'Iškasti 16 deimantų rūdų'}, {target: 32, xp-reward: 1000, target-description: 'Iškasti 32 deimantų rūdas'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eDeimantų lobis', description: '&7Iškask retas deimantų rūdas.', target: 'Iškasti 8 deimantų rūdas', icon: DIAMOND_ORE, accent: '&8'}
+  blacksmith-emerald:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [EMERALD_ORE, DEEPSLATE_EMERALD_ORE]
+    stages: [{target: 3, xp-reward: 300, target-description: 'Iškasti 3 smaragdų rūdas'}, {target: 6, xp-reward: 600, target-description: 'Iškasti 6 smaragdų rūdas'}, {target: 9, xp-reward: 900, target-description: 'Iškasti 9 smaragdų rūdas'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eSmaragdų lobis', description: '&7Iškask itin retas smaragdų rūdas.', target: 'Iškasti 3 smaragdų rūdas', icon: EMERALD_ORE, accent: '&8'}
+  blacksmith-cobblestone:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [STONE]
+    stages: [{target: 64, xp-reward: 80, target-description: 'Iškasti 64 stone'}, {target: 128, xp-reward: 160, target-description: 'Iškasti 128 stone'}, {target: 256, xp-reward: 320, target-description: 'Iškasti 256 stone'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eAkmens atsargos', description: '&7Iškask akmenį kalvio dirbtuvei.', target: 'Iškasti 64 stone', icon: STONE, accent: '&8'}
+  blacksmith-lapis:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [LAPIS_ORE, DEEPSLATE_LAPIS_ORE]
+    stages: [{target: 32, xp-reward: 180, target-description: 'Iškasti 32 lapis lazuli rūdas'}, {target: 64, xp-reward: 360, target-description: 'Iškasti 64 lapis lazuli rūdas'}, {target: 128, xp-reward: 720, target-description: 'Iškasti 128 lapis lazuli rūdas'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eLapis atsargos', description: '&7Iškask lapis lazuli rūdą.', target: 'Iškasti 32 lapis lazuli rūdas', icon: LAPIS_ORE, accent: '&8'}
+  blacksmith-redstone:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [REDSTONE_ORE, DEEPSLATE_REDSTONE_ORE]
+    stages: [{target: 32, xp-reward: 180, target-description: 'Iškasti 32 redstone rūdas'}, {target: 64, xp-reward: 360, target-description: 'Iškasti 64 redstone rūdas'}, {target: 128, xp-reward: 720, target-description: 'Iškasti 128 redstone rūdas'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eRedstone atsargos', description: '&7Iškask redstone rūdą.', target: 'Iškasti 32 redstone rūdas', icon: REDSTONE_ORE, accent: '&8'}
+  blacksmith-granite:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [GRANITE]
+    stages: [{target: 16, xp-reward: 60, target-description: 'Iškasti 16 granito'}, {target: 32, xp-reward: 120, target-description: 'Iškasti 32 granito'}, {target: 64, xp-reward: 240, target-description: 'Iškasti 64 granito'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eGranito atsargos', description: '&7Iškask granito kalvio dirbtuvei.', target: 'Iškasti 16 granito', icon: GRANITE, accent: '&8'}
+  blacksmith-diorite:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [DIORITE]
+    stages: [{target: 16, xp-reward: 60, target-description: 'Iškasti 16 diorito'}, {target: 32, xp-reward: 120, target-description: 'Iškasti 32 diorito'}, {target: 64, xp-reward: 240, target-description: 'Iškasti 64 diorito'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eDiorito atsargos', description: '&7Iškask diorito kalvio dirbtuvei.', target: 'Iškasti 16 diorito', icon: DIORITE, accent: '&8'}
+  blacksmith-smelt-iron:
+    profession: blacksmith
+    type: SMELT_ITEM
+    materials: [IRON_INGOT]
+    stages: [{target: 32, xp-reward: 200, target-description: 'Išlydyti 32 geležies luitus'}, {target: 64, xp-reward: 400, target-description: 'Išlydyti 64 geležies luitus'}, {target: 128, xp-reward: 800, target-description: 'Išlydyti 128 geležies luitus'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eGeležies luitai', description: '&7Lydyk geležį ir paversk rūdą vertingais luitais.', target: 'Išlydyti 32 geležies luitus', icon: FURNACE, accent: '&8'}
+  blacksmith-smelt-gold:
+    profession: blacksmith
+    type: SMELT_ITEM
+    materials: [GOLD_INGOT]
+    stages: [{target: 16, xp-reward: 200, target-description: 'Išlydyti 16 aukso luitų'}, {target: 32, xp-reward: 400, target-description: 'Išlydyti 32 aukso luitus'}, {target: 64, xp-reward: 800, target-description: 'Išlydyti 64 aukso luitus'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eAukso luitai', description: '&7Išlydyk auksą ir papildyk savo vertingų luitų atsargas.', target: 'Išlydyti 16 aukso luitų', icon: FURNACE, accent: '&8'}
+  blacksmith-smelt-copper:
+    profession: blacksmith
+    type: SMELT_ITEM
+    materials: [COPPER_INGOT]
+    stages: [{target: 32, xp-reward: 200, target-description: 'Išlydyti 32 vario luitus'}, {target: 64, xp-reward: 400, target-description: 'Išlydyti 64 vario luitus'}, {target: 128, xp-reward: 800, target-description: 'Išlydyti 128 vario luitus'}]
+    commands: []
+    display: {name: '&8&lKalvio užduotis &8▪ &eVario luitai', description: '&7Lydyk varį ir tobulink savo kalvio amato įgūdžius.', target: 'Išlydyti 32 vario luitus', icon: FURNACE, accent: '&8'}
+  enchanter-apprentice:
+    profession: enchanter
+    type: ENCHANT_ITEM
+    target: 20
+    xp-reward: 650
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eMokinio burtai', description: '&7Kaupk patirtį užburdamas savo pirmuosius daiktus.', target: 'Užburti 20 daiktų', icon: BOOK, accent: '&5'}
+  enchanter-arcane-library:
+    profession: enchanter
+    type: ENCHANT_ITEM
+    target: 50
+    xp-reward: 1200
+    commands: []
+    display: {name: '&5&lBūrėjo užduotis &8▪ &eArkaninė biblioteka', description: '&7Pripildyk savo magišką biblioteką užburtais daiktais.', target: 'Užburti 50 daiktų', icon: ENCHANTED_BOOK, accent: '&5'}
+daily-quests:
+  daily-farmer-wheat:
+    profession: farmer
+    type: HARVEST_CROP
+    materials: [WHEAT]
+    target: 64
+    xp-reward: 150
+    commands: []
+    display: {name: '&a&lKasdienis questas &8✦ &eKviečių derlius', description: '&7Nuskink tik subrendusias kviečių kultūras.', target: 'Nuskinti 64 kviečius', icon: WHEAT, accent: '&a'}
+  daily-farmer-carrots:
+    profession: farmer
+    type: HARVEST_CROP
+    materials: [CARROTS]
+    target: 64
+    xp-reward: 150
+    commands: []
+    display: {name: '&a&lKasdienis questas &8✦ &eMorkų lysvė', description: '&7Surink subrendusį morkų derlių iš savo lauko.', target: 'Nuskinti 64 morkas', icon: CARROT, accent: '&a'}
+  daily-farmer-pumpkins:
+    profession: farmer
+    type: HARVEST_CROP
+    materials: [PUMPKIN]
+    target: 32
+    xp-reward: 175
+    commands: []
+    display: {name: '&a&lKasdienis questas &8✦ &eMoliūgų derlius', description: '&7Surink prinokusius moliūgus iš savo ūkio.', target: 'Nuskinti 32 moliūgus', icon: PUMPKIN, accent: '&a'}
+  daily-blacksmith-iron-ore:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [IRON_ORE, DEEPSLATE_IRON_ORE]
+    target: 24
+    xp-reward: 175
+    commands: []
+    display: {name: '&8&lKasdienis questas &8✦ &eGeležies gysla', description: '&7Iškask geležies rūdas kasykloje.', target: 'Iškasti 24 geležies rūdas', icon: IRON_ORE, accent: '&8'}
+  daily-blacksmith-coal:
+    profession: blacksmith
+    type: MINE_ORE
+    materials: [COAL_ORE, DEEPSLATE_COAL_ORE]
+    target: 48
+    xp-reward: 150
+    commands: []
+    display: {name: '&8&lKasdienis questas &8✦ &eKuro atsargos', description: '&7Iškask anglies rūdas kalvio žaizdrui.', target: 'Iškasti 48 anglies rūdas', icon: COAL_ORE, accent: '&8'}
+  daily-blacksmith-smelt-iron:
+    profession: blacksmith
+    type: SMELT_ITEM
+    materials: [IRON_INGOT]
+    target: 32
+    xp-reward: 175
+    commands: []
+    display: {name: '&8&lKasdienis questas &8✦ &eGeležies luitai', description: '&7Krosnyje išlydyk geležies rūdą į luitus.', target: 'Išlydyti 32 geležies luitus', icon: FURNACE, accent: '&8'}
+  daily-enchanter-enchant:
+    profession: enchanter
+    type: ENCHANT_ITEM
+    materials: [ENCHANT]
+    target: 8
+    xp-reward: 175
+    commands: []
+    display: {name: '&d&lKasdienis questas &8✦ &eMagiški daiktai', description: '&7Užburk daiktus prie užbūrimo stalo.', target: 'Užburti 8 daiktus', icon: ENCHANTING_TABLE, accent: '&d'}
+  daily-enchanter-potions:
+    profession: enchanter
+    type: BREW_POTION
+    materials: [POTION]
+    target: 16
+    xp-reward: 175
+    commands: []
+    display: {name: '&d&lKasdienis questas &8✦ &ePotionų virimas', description: '&7Brewing stande išvirk paprastus potionus.', target: 'Išvirti 16 potionų', icon: BREWING_STAND, accent: '&d'}
+  daily-enchanter-splash-potions:
+    profession: enchanter
+    type: BREW_POTION
+    materials: [SPLASH_POTION]
+    target: 12
+    xp-reward: 200
+    commands: []
+    display: {name: '&d&lKasdienis questas &8✦ &eMetami potionai', description: '&7Brewing stande išvirk metamų potionų.', target: 'Išvirti 12 metamų potionų', icon: SPLASH_POTION, accent: '&d'}
+  daily-baker-bread:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [BREAD]
+    target: 32
+    xp-reward: 150
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eŠviežia duona', description: '&7Crafting lentelėje pagamink šviežios duonos.', target: 'Pagaminti 32 duonas', icon: BREAD, accent: '&6'}
+  daily-baker-cookies:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [COOKIE]
+    target: 64
+    xp-reward: 175
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eSausainių partija', description: '&7Crafting lentelėje pagamink sausainių.', target: 'Pagaminti 64 sausainius', icon: COOKIE, accent: '&6'}
+  daily-baker-pies:
+    profession: baker
+    type: CRAFT_ITEM
+    materials: [PUMPKIN_PIE]
+    target: 16
+    xp-reward: 200
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eMoliūgų pyragai', description: '&7Crafting lentelėje iškepk moliūgų pyragų.', target: 'Pagaminti 16 moliūgų pyragų', icon: PUMPKIN_PIE, accent: '&6'}
+  daily-merchant-emeralds:
+    profession: merchant
+    type: COLLECT_ITEM
+    materials: [EMERALD]
+    target: 16
+    xp-reward: 175
+    commands: []
+    display: {name: '&e&lKasdienis questas &8✦ &eSmaragdų prekyba', description: '&7Iš prekiautojų pasiimk smaragdus už savo prekes.', target: 'Surinkti 16 smaragdų', icon: EMERALD, accent: '&e'}
+  daily-merchant-redstone:
+    profession: merchant
+    type: COLLECT_ITEM
+    materials: [REDSTONE]
+    target: 32
+    xp-reward: 175
+    commands: []
+    display: {name: '&e&lKasdienis questas &8✦ &eRedstone atsargos', description: '&7Prekiaudamas surink redstone dulkių.', target: 'Surinkti 32 redstone dulkių', icon: REDSTONE, accent: '&e'}
+  daily-merchant-ender-pearls:
+    profession: merchant
+    type: COLLECT_ITEM
+    materials: [ENDER_PEARL]
+    target: 12
+    xp-reward: 200
+    commands: []
+    display: {name: '&e&lKasdienis questas &8✦ &eKeliautojų prekės', description: '&7Prekiaudamas surink ender perlus.', target: 'Surinkti 12 ender perlų', icon: ENDER_PEARL, accent: '&e'}
+  daily-architect-cobblestone:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [COBBLESTONE]
+    target: 96
+    xp-reward: 150
+    commands: []
+    display: {name: '&b&lKasdienis questas &8✦ &eAkmens siena', description: '&7Pastatyk sieną iš cobblestone blokų.', target: 'Pastatyti 96 cobblestone blokus', icon: COBBLESTONE, accent: '&b'}
+  daily-architect-oak-planks:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [OAK_PLANKS]
+    target: 96
+    xp-reward: 150
+    commands: []
+    display: {name: '&b&lKasdienis questas &8✦ &eĄžuolo grindys', description: '&7Pastatyk grindis iš ąžuolinių lentų.', target: 'Pastatyti 96 ąžuolines lentas', icon: OAK_PLANKS, accent: '&b'}
+  daily-architect-bricks:
+    profession: architect
+    type: PLACE_BLOCK
+    materials: [BRICKS]
+    target: 48
+    xp-reward: 200
+    commands: []
+    display: {name: '&b&lKasdienis questas &8✦ &ePlytų mūras', description: '&7Pastatyk tvirtą sieną iš plytų blokų.', target: 'Pastatyti 48 plytų blokus', icon: BRICKS, accent: '&b'}
+weekly-quests: {}
+daily-quests-v2:
+  daily-oak-logs:
+    type: BREAK_BLOCK
+    materials: [OAK_LOG, BIRCH_LOG, SPRUCE_LOG, JUNGLE_LOG, ACACIA_LOG, DARK_OAK_LOG]
+    target: 48
+    xp-reward: 150
+    commands: []
+    display: {name: '&2&lKasdienis questas &8✦ &eMiško takas', description: '&7Surink rąstų savo būsimai kelionei.', target: 'Nulaužti 48 medžių rąstus', icon: OAK_LOG, accent: '&2'}
+  daily-sand:
+    type: BREAK_BLOCK
+    materials: [SAND, RED_SAND]
+    target: 64
+    xp-reward: 150
+    commands: []
+    display: {name: '&e&lKasdienis questas &8✦ &eSmėlio siunta', description: '&7Surink smėlio statyboms ir lydymui.', target: 'Nulaužti 64 smėlio blokus', icon: SAND, accent: '&e'}
+  daily-dirt:
+    type: BREAK_BLOCK
+    materials: [DIRT, GRASS_BLOCK, COARSE_DIRT, ROOTED_DIRT]
+    target: 64
+    xp-reward: 150
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eŽemės darbai', description: '&7Paruošk vietą savo naujai bazei.', target: 'Nulaužti 64 žemės blokus', icon: DIRT, accent: '&6'}
+  daily-gravel:
+    type: BREAK_BLOCK
+    materials: [GRAVEL]
+    target: 48
+    xp-reward: 175
+    commands: []
+    display: {name: '&8&lKasdienis questas &8✦ &eŽvyro kelias', description: '&7Surink žvyro kaimo keliams nutiesti.', target: 'Nulaužti 48 žvyro blokus', icon: GRAVEL, accent: '&8'}
+  daily-clay:
+    type: BREAK_BLOCK
+    materials: [CLAY]
+    target: 32
+    xp-reward: 200
+    commands: []
+    display: {name: '&9&lKasdienis questas &8✦ &eUpės lobis', description: '&7Prie upės ar ežero surask ir surink molio.', target: 'Nulaužti 32 molio blokus', icon: CLAY, accent: '&9'}
+  daily-leaves:
+    type: BREAK_BLOCK
+    materials: [OAK_LEAVES, BIRCH_LEAVES, SPRUCE_LEAVES, JUNGLE_LEAVES, ACACIA_LEAVES, DARK_OAK_LEAVES]
+    target: 64
+    xp-reward: 150
+    commands: []
+    display: {name: '&a&lKasdienis questas &8✦ &eMiško tvarkymas', description: '&7Išvalyk medžių lapus ir praretink mišką.', target: 'Nulaužti 64 lapų blokus', icon: OAK_LEAVES, accent: '&a'}
+  daily-torches:
+    type: PLACE_BLOCK
+    materials: [TORCH]
+    target: 32
+    xp-reward: 150
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eŠviesus kelias', description: '&7Apšviesk savo kelią ir apsaugok jį nuo monstrų.', target: 'Pastatyti 32 fakelus', icon: TORCH, accent: '&6'}
+  daily-plank-floor:
+    type: PLACE_BLOCK
+    materials: [OAK_PLANKS, BIRCH_PLANKS, SPRUCE_PLANKS, JUNGLE_PLANKS, ACACIA_PLANKS, DARK_OAK_PLANKS]
+    target: 64
+    xp-reward: 175
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eMedinės grindys', description: '&7Įrenk jaukias grindis savo namui.', target: 'Pastatyti 64 medines lentas', icon: OAK_PLANKS, accent: '&6'}
+  daily-dirt-path:
+    type: PLACE_BLOCK
+    materials: [DIRT, COARSE_DIRT, ROOTED_DIRT]
+    target: 48
+    xp-reward: 150
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eStovyklos vieta', description: '&7Paruošk lygią vietą stovyklai ar sodui.', target: 'Pastatyti 48 žemės blokus', icon: DIRT, accent: '&6'}
+  daily-sandcastle:
+    type: PLACE_BLOCK
+    materials: [SAND, RED_SAND]
+    target: 48
+    xp-reward: 175
+    commands: []
+    display: {name: '&e&lKasdienis questas &8✦ &ePajūrio statinys', description: '&7Prie vandens pastatyk smėlio konstrukciją.', target: 'Pastatyti 48 smėlio blokus', icon: SAND, accent: '&e'}
+  daily-craft-torches:
+    type: CRAFT_ITEM
+    materials: [TORCH]
+    target: 64
+    xp-reward: 150
+    commands: []
+    display: {name: '&e&lKasdienis questas &8✦ &eFakelų atsargos', description: '&7Crafting lentelėje paruošk fakelų kelionei.', target: 'Pagaminti 64 fakelus', icon: TORCH, accent: '&e'}
+  daily-craft-chests:
+    type: CRAFT_ITEM
+    materials: [CHEST]
+    target: 12
+    xp-reward: 175
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eSandėlio plėtra', description: '&7Crafting lentelėje pagamink skrynias savo radiniams.', target: 'Pagaminti 12 skrynių', icon: CHEST, accent: '&6'}
+  daily-craft-ladders:
+    type: CRAFT_ITEM
+    materials: [LADDER]
+    target: 48
+    xp-reward: 150
+    commands: []
+    display: {name: '&b&lKasdienis questas &8✦ &eKopėčių rinkinys', description: '&7Crafting lentelėje pagamink kopėčių aukštoms vietoms.', target: 'Pagaminti 48 kopėčias', icon: LADDER, accent: '&b'}
+  daily-craft-sticks:
+    type: CRAFT_ITEM
+    materials: [STICK]
+    target: 64
+    xp-reward: 150
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eĮrankių ruošiniai', description: '&7Crafting lentelėje paruošk medžiagų įrankiams.', target: 'Pagaminti 64 pagaliukus', icon: STICK, accent: '&6'}
+  daily-craft-bowls:
+    type: CRAFT_ITEM
+    materials: [BOWL]
+    target: 24
+    xp-reward: 150
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eKelionės indai', description: '&7Crafting lentelėje pagamink dubenėlių maistui.', target: 'Pagaminti 24 dubenėlius', icon: BOWL, accent: '&6'}
+  daily-craft-paper:
+    type: CRAFT_ITEM
+    materials: [PAPER]
+    target: 24
+    xp-reward: 175
+    commands: []
+    display: {name: '&f&lKasdienis questas &8✦ &eKartografo užrašai', description: '&7Crafting lentelėje pagamink popieriaus savo užrašams.', target: 'Pagaminti 24 popieriaus lapus', icon: PAPER, accent: '&f'}
+  daily-smelt-glass:
+    type: SMELT_ITEM
+    materials: [GLASS]
+    target: 32
+    xp-reward: 200
+    commands: []
+    display: {name: '&b&lKasdienis questas &8✦ &eLangų dirbtuvės', description: '&7Krosnyje išlydyk smėlį į stiklą savo namui.', target: 'Išlydyti 32 stiklo blokus', icon: GLASS, accent: '&b'}
+  daily-smelt-bricks:
+    type: SMELT_ITEM
+    materials: [BRICK]
+    target: 32
+    xp-reward: 200
+    commands: []
+    display: {name: '&c&lKasdienis questas &8✦ &ePlytų gamyba', description: '&7Krosnyje išlydyk molį į plytas statyboms.', target: 'Išlydyti 32 plytas', icon: BRICK, accent: '&c'}
+  daily-smelt-charcoal:
+    type: SMELT_ITEM
+    materials: [CHARCOAL]
+    target: 16
+    xp-reward: 175
+    commands: []
+    display: {name: '&8&lKasdienis questas &8✦ &eMiško kuras', description: '&7Krosnyje pagamink medžio anglies fakelams.', target: 'Išlydyti 16 medžio anglių', icon: CHARCOAL, accent: '&8'}
+  daily-stone:
+    type: BREAK_BLOCK
+    materials: [STONE, GRANITE, DIORITE, ANDESITE]
+    target: 96
+    xp-reward: 200
+    commands: []
+    display: {name: '&7&lKasdienis questas &8✦ &eAkmens ekspedicija', description: '&7Leiskis po žeme ir surink akmens savo būsimoms statyboms.', target: 'Nulaužti 96 akmens blokus', icon: STONE, accent: '&7'}
+  daily-flowers:
+    type: BREAK_BLOCK
+    materials: [DANDELION, POPPY, BLUE_ORCHID, ALLIUM, AZURE_BLUET, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY]
+    target: 24
+    xp-reward: 175
+    commands: []
+    display: {name: '&d&lKasdienis questas &8✦ &eLauko puokštė', description: '&7Ištirk pievas ir surink spalvingų gėlių puokštei.', target: 'Nulaužti 24 gėles', icon: POPPY, accent: '&d'}
+  daily-mushrooms:
+    type: BREAK_BLOCK
+    materials: [BROWN_MUSHROOM, RED_MUSHROOM]
+    target: 16
+    xp-reward: 175
+    commands: []
+    display: {name: '&c&lKasdienis questas &8✦ &eMiško gardumynai', description: '&7Miške surask grybų gardžiam troškiniui.', target: 'Surinkti 16 grybų', icon: RED_MUSHROOM, accent: '&c'}
+  daily-cobblestone-wall:
+    type: PLACE_BLOCK
+    materials: [COBBLESTONE]
+    target: 64
+    xp-reward: 175
+    commands: []
+    display: {name: '&8&lKasdienis questas &8✦ &eTvirta siena', description: '&7Pastatyk akmeninę sieną ir sustiprink savo bazę.', target: 'Pastatyti 64 akmenukų blokus', icon: COBBLESTONE, accent: '&8'}
+  daily-glass-windows:
+    type: PLACE_BLOCK
+    materials: [GLASS, GLASS_PANE]
+    target: 32
+    xp-reward: 200
+    commands: []
+    display: {name: '&b&lKasdienis questas &8✦ &eŠviesūs langai', description: '&7Įstatyk langus, kad tavo namuose būtų daugiau šviesos.', target: 'Pastatyti 32 stiklo blokus arba plokštes', icon: GLASS_PANE, accent: '&b'}
+  daily-fence:
+    type: PLACE_BLOCK
+    materials: [OAK_FENCE, BIRCH_FENCE, SPRUCE_FENCE, JUNGLE_FENCE, ACACIA_FENCE, DARK_OAK_FENCE]
+    target: 32
+    xp-reward: 200
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eSaugus aptvaras', description: '&7Pastatyk aptvarą gyvūnams arba apsaugok savo teritoriją.', target: 'Pastatyti 32 tvoras', icon: OAK_FENCE, accent: '&6'}
+  daily-craft-tables:
+    type: CRAFT_ITEM
+    materials: [CRAFTING_TABLE]
+    target: 8
+    xp-reward: 175
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eAmatininko kampelis', description: '&7Crafting lentelėje pagamink darbastalių savo dirbtuvėms.', target: 'Pagaminti 8 darbastalius', icon: CRAFTING_TABLE, accent: '&6'}
+  daily-craft-furnaces:
+    type: CRAFT_ITEM
+    materials: [FURNACE]
+    target: 8
+    xp-reward: 200
+    commands: []
+    display: {name: '&8&lKasdienis questas &8✦ &eKrosnių meistras', description: '&7Crafting lentelėje paruošk krosnių maistui ir rūdoms lydyti.', target: 'Pagaminti 8 krosnis', icon: FURNACE, accent: '&8'}
+  daily-craft-glass-panes:
+    type: CRAFT_ITEM
+    materials: [GLASS_PANE]
+    target: 32
+    xp-reward: 175
+    commands: []
+    display: {name: '&b&lKasdienis questas &8✦ &eLangų rėmai', description: '&7Crafting lentelėje pagamink stiklo plokščių savo namui.', target: 'Pagaminti 32 stiklo plokštes', icon: GLASS_PANE, accent: '&b'}
+  daily-craft-fences:
+    type: CRAFT_ITEM
+    materials: [OAK_FENCE, BIRCH_FENCE, SPRUCE_FENCE, JUNGLE_FENCE, ACACIA_FENCE, DARK_OAK_FENCE]
+    target: 32
+    xp-reward: 175
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eTvorų ruošinys', description: '&7Crafting lentelėje pagamink tvorų savo ūkiui ar bazei.', target: 'Pagaminti 32 tvoras', icon: OAK_FENCE, accent: '&6'}
+  daily-smelt-stone:
+    type: SMELT_ITEM
+    materials: [STONE]
+    target: 32
+    xp-reward: 200
+    commands: []
+    display: {name: '&7&lKasdienis questas &8✦ &eGlotnus akmuo', description: '&7Krosnyje išlydyk akmenukus į akmenį statybų projektams.', target: 'Išlydyti 32 akmens blokus', icon: STONE, accent: '&7'}
+  daily-smelt-chicken:
+    type: SMELT_ITEM
+    materials: [COOKED_CHICKEN]
+    target: 16
+    xp-reward: 175
+    commands: []
+    display: {name: '&6&lKasdienis questas &8✦ &eKelionės pietūs', description: '&7Krosnyje iškepk vištienos atsargų ilgai kelionei.', target: 'Iškepti 16 keptos vištienos', icon: COOKED_CHICKEN, accent: '&6'}
+  daily-smelt-pork:
+    type: SMELT_ITEM
+    materials: [COOKED_PORKCHOP]
+    target: 16
+    xp-reward: 175
+    commands: []
+    display: {name: '&c&lKasdienis questas &8✦ &eStovyklos vakarienė', description: '&7Krosnyje iškepk kiaulienos savo kelionės atsargoms.', target: 'Iškepti 16 keptos kiaulienos', icon: COOKED_PORKCHOP, accent: '&c'}
